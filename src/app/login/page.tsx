@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Header from "../_components/Header";
 
 export default function LoginPage() {
@@ -34,7 +35,9 @@ export default function LoginPage() {
           </button>
           <div className="">
             회원가입 없이{" "}
-            <span className="border-b-2 font-semibold">둘러보기</span>
+            <Link href="/" className="border-b-2 font-semibold">
+              둘러보기
+            </Link>
           </div>
         </div>
       </div>

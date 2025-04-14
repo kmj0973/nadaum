@@ -1,7 +1,12 @@
+import Link from "next/link";
+
 export default function Navbar() {
   return (
     <nav className="bg-white fixed bottom-0 w-full max-w-[500px] h-[60px] drop-shadow-xl flex justify-around items-center ">
-      <div className="flex flex-col justify-center items-center gap-0.5 flex-1">
+      <Link
+        href="/"
+        className="flex flex-col justify-center items-center gap-0.5 flex-1"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -26,8 +31,11 @@ export default function Navbar() {
           />
         </svg>
         <div className="text-center text-[12px]">홈</div>
-      </div>
-      <div className="flex flex-col justify-center items-center flex-1 mt-0.5 gap-0.5">
+      </Link>
+      <Link
+        href="/map"
+        className="flex flex-col justify-center items-center flex-1 mt-0.5 gap-0.5"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -51,8 +59,11 @@ export default function Navbar() {
           />
         </svg>
         <div className="text-center text-[12px]">공공체육시설</div>
-      </div>
-      <div className="flex flex-col justify-center items-center gap-0.5 flex-1">
+      </Link>
+      <Link
+        href="/chatbot"
+        className="flex flex-col justify-center items-center gap-0.5 flex-1"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -69,8 +80,11 @@ export default function Navbar() {
           />
         </svg>
         <div className="text-center text-[12px]">AI 챗봇</div>
-      </div>
-      <div className="flex flex-col justify-center items-center gap-0.5 flex-1">
+      </Link>
+      <Link
+        href="/mypage"
+        className="flex flex-col justify-center items-center gap-0.5 flex-1"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -93,7 +107,7 @@ export default function Navbar() {
           />
         </svg>
         <div className="text-center text-[12px]">프로필</div>
-      </div>
+      </Link>
     </nav>
   );
 }

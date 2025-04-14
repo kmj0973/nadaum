@@ -22,3 +22,11 @@ body {
   padding: 0;
   background-color: #e8e8e8;
 }
+
+.custom-swiper-pagination .swiper-pagination-bullet {
+  background: #d9d9d9;
+}
+
+.custom-swiper-pagination .swiper-pagination-bullet-active {
+  background: #18b491;
+}
