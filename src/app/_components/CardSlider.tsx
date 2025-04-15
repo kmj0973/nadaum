@@ -7,7 +7,7 @@ import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 
-export default function CardSlide() {
+export default function CardSlider() {
   return (
     <Swiper
       className="custom-swiper-pagination relative rounded-xl shadow-md w-[90%] h-[166px] tablet:h-[186px]"

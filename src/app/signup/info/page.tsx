@@ -1,6 +1,7 @@
 import Header from "@/app/_components/Header";
+import Link from "next/link";
 
-export default function SignUpPage() {
+export default function InfoPage() {
   return (
     <div className="bg-white w-full min-h-[750px] h-[100vh] flex flex-col items-center scroll-auto">
       <Header title="" />
@@ -57,6 +58,9 @@ export default function SignUpPage() {
               입력하기
             </button>
           </form>
+          <Link href="/" className="text-[#767676] text-sm">
+            다음에 입력하기
+          </Link>
         </div>
       </div>
     </div>

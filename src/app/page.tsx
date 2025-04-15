@@ -2,39 +2,17 @@ import Image from "next/image";
 import photomap from "../../public/images/photomap.png";
 import Navbar from "./_components/Navbar";
 import Link from "next/link";
-import CardSlide from "./_components/CardSlide";
+import CardSlider from "./_components/CardSlider";
 
 export default function HomePage() {
   return (
     <div className="relative w-full min-h-[750px] h-[100vh] flex flex-col items-center scroll-auto">
       <div className="bg-white w-full flex flex-col items-center gap-5 py-5 pb-[66px]">
-        <CardSlide />
+        <CardSlider />
         <div className="rounded-xl shadow-md w-[90%] h-[466px] tablet:h-[540px] flex flex-col items-center justify-center gap-4">
           <div className="w-[85%] text-xl tablet:text-2xl font-bold mb-3">
             나다운 모습 가꾸기
           </div>
-          <Link
-            href="/chatbot"
-            className="bg-[#F8F8F8] rounded-2xl w-[85%] h-[100px] tablet:h-[120px] cursor-pointer"
-          >
-            <div className="text-[16px] tablet:text-xl font-semibold mt-5 ml-5">
-              캐릭터 챗봇 AI
-            </div>
-            <div className="text-[13px] tablet:text-base text-[#767676] font-normal ml-5">
-              나만의 PT 선생님 만들기
-            </div>
-          </Link>
-          <Link
-            href="/map?q=walking"
-            className="bg-[#F8F8F8] rounded-2xl w-[85%] h-[100px] tablet:h-[120px] cursor-pointer"
-          >
-            <div className="text-[16px] tablet:text-xl font-semibold mt-5 ml-5">
-              산책로 경로 추천
-            </div>
-            <div className="text-[13px] tablet:text-base text-[#767676] font-normal ml-5">
-              나만의 야외 코스 만들기
-            </div>
-          </Link>
           <Link
             href="/map?q=gym"
             className="bg-[#F8F8F8] rounded-2xl w-[85%] h-[100px] tablet:h-[120px] cursor-pointer"
@@ -44,6 +22,28 @@ export default function HomePage() {
             </div>
             <div className="text-[13px] tablet:text-base text-[#767676] font-normal ml-5">
               운동이 쉬워지는 첫걸음
+            </div>
+          </Link>
+          <Link
+            href="/diet"
+            className="bg-[#F8F8F8] rounded-2xl w-[85%] h-[100px] tablet:h-[120px] cursor-pointer"
+          >
+            <div className="text-[16px] tablet:text-xl font-semibold mt-5 ml-5">
+              나만의 식단 추천
+            </div>
+            <div className="text-[13px] tablet:text-base text-[#767676] font-normal ml-5">
+              내 취향대로, 내 입맛대로
+            </div>
+          </Link>
+          <Link
+            href="/chatbot"
+            className="bg-[#F8F8F8] rounded-2xl w-[85%] h-[100px] tablet:h-[120px] cursor-pointer"
+          >
+            <div className="text-[16px] tablet:text-xl font-semibold mt-5 ml-5">
+              캐릭터 챗봇 AI
+            </div>
+            <div className="text-[13px] tablet:text-base text-[#767676] font-normal ml-5">
+              나만의 PT 선생님 만들기
             </div>
           </Link>
         </div>
@@ -61,7 +61,10 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="w-full max-w-[240px] tablet:max-w-[280px]">
+          <Link
+            href="/map?q=public"
+            className="w-full max-w-[240px] tablet:max-w-[280px]"
+          >
             <Image
               src={photomap}
               alt="photomap"
@@ -72,7 +75,7 @@ export default function HomePage() {
                 height: "auto",
               }}
             />
-          </div>
+          </Link>
           <div className="w-full flex flex-col justify-center items-center">
             <div className="text-white tablet:text-lg mb-2 tablet:mb-4">
               원하는 지역을 찾아보세요

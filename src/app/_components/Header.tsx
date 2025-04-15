@@ -10,7 +10,7 @@ export default function Header({ title }: { title: string | null }) {
   };
 
   return (
-    <div className="relative w-full h-[60px] flex items-center justify-center">
+    <div className="relative w-full h-[60px] flex items-center justify-center cursor-pointer">
       <svg
         onClick={handleBack}
         className="absolute top-5 left-7"

@@ -33,7 +33,7 @@ export default function Navbar() {
         <div className="text-center text-[12px]">홈</div>
       </Link>
       <Link
-        href="/map"
+        href="/map?q=public"
         className="flex flex-col justify-center items-center flex-1 mt-0.5 gap-0.5"
       >
         <svg
