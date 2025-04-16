@@ -1,13 +1,17 @@
 "use client";
 
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { auth } from "../../../../firebase/firebasedb";
 import { useRouter } from "next/navigation";
 import { setCookie } from "../../../global/cookies";
 
 export default function SignUpForm() {
   const router = useRouter();
+  const [checkEmail, setCheckEmail] = useState<boolean>(true);
+  const [checkNick, setCheckNick] = useState<boolean>(true);
+  const [checkPassword, setCheckPassword] = useState<boolean>(true);
+  const [checkAll, setCheckAll] = useState<boolean>(true);
 
   const handleSignUp = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,8 +22,33 @@ export default function SignUpForm() {
       const password = formData.get("password") as string;
 
       if (!email || !password || !displayName) {
-        alert("모든 항목을 입력해 주세요.");
+        setCheckAll(false);
         return;
+      }
+
+      if (displayName.length < 3 && password.length < 6) {
+        setCheckNick(false);
+        setCheckPassword(false);
+        setCheckAll(true);
+        return;
+      }
+
+      if (displayName.length < 3) {
+        setCheckNick(false);
+        setCheckAll(true);
+        return;
+      } else if (displayName.length >= 3) {
+        setCheckNick(true);
+        setCheckAll(true);
+      }
+
+      if (password.length < 6) {
+        setCheckPassword(false);
+        setCheckAll(true);
+        return;
+      } else if (password.length >= 6) {
+        setCheckPassword(true);
+        setCheckAll(true);
       }
 
       // 회원가입
@@ -41,7 +70,7 @@ export default function SignUpForm() {
       }
     } catch (error) {
       console.log(error);
-      alert("이메일이 중복입니다.");
+      setCheckEmail(false);
     }
   };
   return (
@@ -53,30 +82,59 @@ export default function SignUpForm() {
         onSubmit={handleSignUp}
         className="w-full flex flex-col gap-10 mb-6"
       >
-        <input
-          className="outline-none border-b-1 border-[#767676] focus:border-black px-0.5 py-2 text-sm tablet:text-base"
-          type="text"
-          name="displayName"
-          placeholder="닉네임을 입력하세요"
-        />
-        <input
-          className="outline-none border-b-1 border-[#767676] focus:border-black px-0.5 py-2 text-sm tablet:text-base"
-          type="email"
-          name="email"
-          placeholder="이메일을 입력하세요"
-        />
-        <input
-          className="outline-none border-b-1 border-[#767676] focus:border-black px-0.5 py-2 text-sm tablet:text-base"
-          type="password"
-          name="password"
-          placeholder="비밀번호를 입력하세요"
-        />
-        <button
-          type="submit"
-          className="rounded-sm bg-[#18B491] mt-10 py-3 text-white text-sm tablet:text-base"
-        >
-          회원가입
-        </button>
+        <div className="relative">
+          <input
+            className="w-full outline-none border-b-1 border-[#767676] focus:border-black px-0.5 py-2 text-sm tablet:text-base"
+            type="text"
+            name="displayName"
+            placeholder="닉네임을 입력하세요"
+          />
+          {checkNick ? null : (
+            <div className="text-red-400 text-sm absolute top-10">
+              닉네임은 3자 이상 입력해주세요
+            </div>
+          )}
+        </div>
+        <div className="relative">
+          <input
+            className="w-full outline-none border-b-1 border-[#767676] focus:border-black px-0.5 py-2 text-sm tablet:text-base"
+            type="email"
+            name="email"
+            placeholder="이메일을 입력하세요"
+          />
+          {checkEmail ? null : (
+            <div className="text-red-400 text-sm absolute top-10">
+              이메일이 중복입니다
+            </div>
+          )}
+        </div>
+
+        <div className="relative">
+          <input
+            className="w-full outline-none border-b-1 border-[#767676] focus:border-black px-0.5 py-2 text-sm tablet:text-base"
+            type="password"
+            name="password"
+            placeholder="비밀번호를 입력하세요"
+          />
+          {checkPassword ? null : (
+            <div className="text-red-400 text-sm absolute top-10">
+              비밀번호는 6자 이상 입력해주세요
+            </div>
+          )}
+        </div>
+        <div className="relative">
+          <button
+            type="submit"
+            className="w-full cursor-pointer rounded-sm bg-[#18B491] mt-10 py-3 text-white text-sm tablet:text-base"
+          >
+            회원가입
+          </button>
+          {checkAll ? null : (
+            <div className="text-red-400 text-sm absolute top-2">
+              모든 항목을 입력해주세요
+            </div>
+          )}
+        </div>
       </form>
       <div className="text-[#797979] font-light text-sm tablet:text-base">
         카카오로 회원가입 하기

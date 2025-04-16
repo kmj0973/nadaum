@@ -18,7 +18,7 @@ export default function SearchResults() {
         navbarSlide ? "translate-y-0" : "translate-y-[93%]"
       }`}
     >
-      <button onClick={handleClick}>
+      <button onClick={handleClick} className="cursor-pointer">
         <div className="w-[100px] h-[1px] bg-[#b7b7b7] rounded-2xl mb-1"></div>
         <div className="w-[100px] h-[1px] bg-[#b7b7b7] rounded-2xl"></div>
       </button>
