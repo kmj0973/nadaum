@@ -1,12 +1,14 @@
 "use client";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { auth } from "../../../../firebase/firebasedb";
 import { setCookie } from "@/global/cookies";
 import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
+  const [checkAll, setCheckAll] = useState<boolean>(true);
+
   const router = useRouter();
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
@@ -25,6 +27,7 @@ export default function LoginForm() {
       const user = userCredential.user;
 
       if (user) {
+        setCheckAll(true);
         console.log("로그인 완료:", user);
 
         setCookie("token", await user.getIdToken());
@@ -32,7 +35,7 @@ export default function LoginForm() {
         router.replace("/");
       }
     } catch (error) {
-      console.log(error);
+      setCheckAll(false);
     }
   };
 
@@ -54,12 +57,19 @@ export default function LoginForm() {
           name="password"
           placeholder="비밀번호를 입력하세요"
         />
-        <button
-          type="submit"
-          className="rounded-sm bg-[#18B491] mt-10 py-3 text-white text-sm tablet:text-base"
-        >
-          로그인
-        </button>
+        <div className="relative">
+          {checkAll ? null : (
+            <div className="w-full absolute top-3 text-center text-red-400 text-sm">
+              잘못된 이메일 또는 비밀번호입니다
+            </div>
+          )}
+          <button
+            type="submit"
+            className="w-full rounded-sm bg-[#18B491] mt-10 py-3 text-white text-sm tablet:text-base"
+          >
+            로그인
+          </button>
+        </div>
       </form>
       <div className="text-[#797979] font-light text-sm tablet:text-base">
         카카오 로그인으로 시작하기

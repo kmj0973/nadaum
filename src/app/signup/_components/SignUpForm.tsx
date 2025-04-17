@@ -8,10 +8,8 @@ import { setCookie } from "../../../global/cookies";
 
 export default function SignUpForm() {
   const router = useRouter();
-  const [checkEmail, setCheckEmail] = useState<boolean>(true);
-  const [checkNick, setCheckNick] = useState<boolean>(true);
-  const [checkPassword, setCheckPassword] = useState<boolean>(true);
-  const [checkAll, setCheckAll] = useState<boolean>(true);
+  const [error, setError] = useState<string|null>(null);
+  
 
   const handleSignUp = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,33 +20,18 @@ export default function SignUpForm() {
       const password = formData.get("password") as string;
 
       if (!email || !password || !displayName) {
-        setCheckAll(false);
+        setError('모든 항목을 입력해주세요');
         return;
-      }
-
-      if (displayName.length < 3 && password.length < 6) {
-        setCheckNick(false);
-        setCheckPassword(false);
-        setCheckAll(true);
-        return;
-      }
-
-      if (displayName.length < 3) {
-        setCheckNick(false);
-        setCheckAll(true);
-        return;
-      } else if (displayName.length >= 3) {
-        setCheckNick(true);
-        setCheckAll(true);
       }
 
       if (password.length < 6) {
-        setCheckPassword(false);
-        setCheckAll(true);
+        setError("비밀번호는 최소 6자 이상 입력해주세요")
+        return
+      }
+
+      if (displayName.length < 3) {
+        setError('닉네임은 최소 3자 이상 입력해주세요');
         return;
-      } else if (password.length >= 6) {
-        setCheckPassword(true);
-        setCheckAll(true);
       }
 
       // 회원가입
@@ -69,8 +52,7 @@ export default function SignUpForm() {
         router.push("/signup/info");
       }
     } catch (error) {
-      console.log(error);
-      setCheckEmail(false);
+      setError("중복된 이메일입니다");
     }
   };
   return (
@@ -89,11 +71,7 @@ export default function SignUpForm() {
             name="displayName"
             placeholder="닉네임을 입력하세요"
           />
-          {checkNick ? null : (
-            <div className="text-red-400 text-sm absolute top-10">
-              닉네임은 3자 이상 입력해주세요
-            </div>
-          )}
+          
         </div>
         <div className="relative">
           <input
@@ -102,11 +80,7 @@ export default function SignUpForm() {
             name="email"
             placeholder="이메일을 입력하세요"
           />
-          {checkEmail ? null : (
-            <div className="text-red-400 text-sm absolute top-10">
-              이메일이 중복입니다
-            </div>
-          )}
+         
         </div>
 
         <div className="relative">
@@ -116,11 +90,6 @@ export default function SignUpForm() {
             name="password"
             placeholder="비밀번호를 입력하세요"
           />
-          {checkPassword ? null : (
-            <div className="text-red-400 text-sm absolute top-10">
-              비밀번호는 6자 이상 입력해주세요
-            </div>
-          )}
         </div>
         <div className="relative">
           <button
@@ -129,9 +98,9 @@ export default function SignUpForm() {
           >
             회원가입
           </button>
-          {checkAll ? null : (
-            <div className="text-red-400 text-sm absolute top-2">
-              모든 항목을 입력해주세요
+          {!error ? null : (
+            <div className="w-full text-center text-red-400 text-sm absolute top-2">
+              {error}
             </div>
           )}
         </div>
