@@ -35,6 +35,7 @@ export default function LoginForm() {
         router.replace("/");
       }
     } catch (error) {
+      console.log(error);
       setCheckAll(false);
     }
   };

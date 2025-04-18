@@ -7,9 +7,7 @@ export default function SearchResults() {
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    console.log("click");
     setNavbarSlide(!navbarSlide);
-    console.log(navbarSlide);
   };
 
   return (

@@ -8,8 +8,7 @@ import { setCookie } from "../../../global/cookies";
 
 export default function SignUpForm() {
   const router = useRouter();
-  const [error, setError] = useState<string|null>(null);
-  
+  const [error, setError] = useState<string | null>(null);
 
   const handleSignUp = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,17 +19,17 @@ export default function SignUpForm() {
       const password = formData.get("password") as string;
 
       if (!email || !password || !displayName) {
-        setError('모든 항목을 입력해주세요');
+        setError("모든 항목을 입력해주세요");
         return;
       }
 
       if (password.length < 6) {
-        setError("비밀번호는 최소 6자 이상 입력해주세요")
-        return
+        setError("비밀번호는 최소 6자 이상 입력해주세요");
+        return;
       }
 
       if (displayName.length < 3) {
-        setError('닉네임은 최소 3자 이상 입력해주세요');
+        setError("닉네임은 최소 3자 이상 입력해주세요");
         return;
       }
 
@@ -52,6 +51,7 @@ export default function SignUpForm() {
         router.push("/signup/info");
       }
     } catch (error) {
+      console.log(error);
       setError("중복된 이메일입니다");
     }
   };
@@ -71,7 +71,6 @@ export default function SignUpForm() {
             name="displayName"
             placeholder="닉네임을 입력하세요"
           />
-          
         </div>
         <div className="relative">
           <input
@@ -80,7 +79,6 @@ export default function SignUpForm() {
             name="email"
             placeholder="이메일을 입력하세요"
           />
-         
         </div>
 
         <div className="relative">
