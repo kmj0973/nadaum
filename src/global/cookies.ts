@@ -3,13 +3,13 @@
 import { cookies } from "next/headers";
 
 export async function setCookie(key: string, value: string) {
-  (await cookies()).set(key, value);
+  cookies().set(key, value);
 }
 
 export async function getCookie(key: string) {
-  return (await cookies()).get(key)?.value;
+  return cookies().get(key)?.value;
 }
 
 export async function deleteCookie(key: string) {
-  return (await cookies()).delete(key);
+  return cookies().delete(key);
 }
