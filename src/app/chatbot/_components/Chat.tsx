@@ -1,14 +1,18 @@
-import OpenAI from "openai";
+type Props = {
+  role: string;
+  message: string;
+};
 
-export default async function Chat() {
-  //   const openai = new OpenAI({
-  //     apiKey:
-  //
-  //   });
-  //   const response = await openai.responses.create({
-  //     model: "gpt-3.5-turbo-0125",
-  //     input: "과일 3종류만 말해줘",
-  //   });
-  //   return <div>{response.output_text}</div>;
-  return <div>chat</div>;
+export default function Chat({ role, message }: Props) {
+  return (
+    <>
+      {role==='user' ? (
+        <div className=" font-medium ml-10 flex justify-end">
+          <div className="bg-[#F2F2F2] p-2 px-4 rounded-2xl">{message}</div>
+        </div>
+      ) : (
+        <div className="font-medium mr-10 ">{message}</div>
+      )}
+    </>
+  );
 }

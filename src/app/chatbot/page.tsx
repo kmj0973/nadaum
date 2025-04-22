@@ -1,44 +1,58 @@
+"use client";
+
+import { useState } from "react";
 import Header from "../_components/Header";
 import Chat from "./_components/Chat";
 
 export default function AuthPage() {
+  const [input, setInput] = useState("");
+  const [messages, setMessages] = useState<{ role: string; content: string }[]>(
+    []
+  );
+
+  const sendMessage = async () => {
+    if (!input.trim()) return;
+
+    const newMessage = { role: "user", content: input };
+    setMessages((prev) => [...prev, newMessage]);
+    setInput("");
+
+    const res = await fetch("/chatbot/api", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: input }),
+    });
+
+    const data = await res.json();
+    setMessages((prev) => [
+      ...prev,
+      { role: "assistant", content: data.reply },
+    ]);
+  };
+
   return (
     <div className="bg-white w-full min-h-[650px] h-[100vh] flex flex-col items-center scroll-auto">
       <Header title="AI 챗봇" />
-      <Chat />
+      {/* 채팅 영역 */}
       <div className="w-[90%] flex flex-col gap-8 py-5 mt-5 overflow-auto flex-1">
-        <div className="font-medium ml-10 border-2">
-          육류를 포함한 식단으로 바꿔줘. 다이어트 중이라 칼로리는 최대한 적게
-          구성해서 만들어줘. 간식을 제외하고 작성해줘.
-        </div>
-        <div className="font-medium mr-10 border-2">
-          아침 닭가슴살 100g삶은 계란 2개(노른자 1개, 흰자 2개)오트밀 40g +
-          아몬드밀크블루베리 한 줌 (20~30g)양배추, 오이, 파프리카 샐러드 점심
-          소고기 우둔살(또는 닭가슴살) 120g현미밥 100g (or 고구마 100g)브로콜리,
-          버섯볶음나물 반찬 (간장, 들기름 소량 사용) 저녁 연어구이(또는
-          닭가슴살) 120g나물 반찬 (기름 최소)두부 반모 (or 삶은 콩 50g)샐러드
-          (양배추, 상추, 치커리 + 발사믹 드레싱)
-        </div>
-        <div className="font-medium ml-10 border-2">
-          육류를 포함한 식단으로 바꿔줘. 다이어트 중이라 칼로리는 최대한 적게
-          구성해서 만들어줘. 간식을 제외하고 작성해줘.
-        </div>
-        <div className="font-medium mr-10 border-2">
-          아침 닭가슴살 100g삶은 계란 2개(노른자 1개, 흰자 2개)오트밀 40g +
-          아몬드밀크블루베리 한 줌 (20~30g)양배추, 오이, 파프리카 샐러드 점심
-          소고기 우둔살(또는 닭가슴살) 120g현미밥 100g (or 고구마 100g)브로콜리,
-          버섯볶음나물 반찬 (간장, 들기름 소량 사용) 저녁 연어구이(또는
-          닭가슴살) 120g나물 반찬 (기름 최소)두부 반모 (or 삶은 콩 50g)샐러드
-          (양배추, 상추, 치커리 + 발사믹 드레싱)
-        </div>
+        {messages.length == 0 ? (
+          <div>오늘의 식단</div>
+        ) : (
+          messages.map((message, index) => (
+            <Chat key={index} role={message.role} message={message.content} />
+          ))
+        )}
       </div>
+      {/* 입력 영역 */}
       <div className="relative w-full flex justify-center items-center">
-        <input
+        <textarea
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
           placeholder="무엇이든 물어보세요"
-          className="bg-[#F2F2F2] w-[90%] h-[55px] my-5 p-3 text-sm rounded-xl"
-          type="text"
+          className="bg-[#F2F2F2] w-[90%] h-[55px] my-5 p-3 pr-10 text-sm rounded-xl"
         />
         <svg
+          onClick={sendMessage}
           className="absolute right-8"
           xmlns="http://www.w3.org/2000/svg"
           width="25"
