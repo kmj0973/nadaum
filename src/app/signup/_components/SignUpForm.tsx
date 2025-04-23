@@ -2,9 +2,10 @@
 
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { FormEvent, useState } from "react";
-import { auth } from "../../../../firebase/firebasedb";
+import { auth, db } from "../../../../firebase/firebasedb";
 import { useRouter } from "next/navigation";
 import { setCookie } from "../../../global/cookies";
+import { doc, setDoc } from "firebase/firestore";
 
 export default function SignUpForm() {
   const router = useRouter();
@@ -40,15 +41,21 @@ export default function SignUpForm() {
         password
       );
       const user = userCredential.user;
-
       // 유저 프로필 업데이트
       if (user) {
         await updateProfile(user, { displayName: displayName });
         console.log("회원가입 완료:", user);
 
+        //데이터베이스 추가
+        await setDoc(doc(db, "users", user.uid), {
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+        });
+
         setCookie("token", await user.getIdToken());
         // 리다이렉션
-        router.push("/signup/info");
+        router.push(`/signup/info?uid=${user.uid}`);
       }
     } catch (error) {
       console.log(error);
