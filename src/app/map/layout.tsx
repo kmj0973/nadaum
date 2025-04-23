@@ -1,7 +1,17 @@
 import Script from "next/script";
 import React from "react";
 
-export default function layout({ children }: { children: React.ReactNode }) {
+export default async function layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const data = await fetch(
+    `http://openapi.seoul.go.kr:8088/${process.env.OPENDATA_API_KEY}/json/facilities/1/5/`
+  )
+    .then((res) => res.json())
+    .then((json) => json.facilities.row);
+  console.log(data);
   return (
     <>
       <Script

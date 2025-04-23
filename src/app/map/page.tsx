@@ -1,10 +1,22 @@
 "use client";
 
-import { Map, MarkerClusterer } from "react-kakao-maps-sdk";
+import { Map, MapMarker } from "react-kakao-maps-sdk";
 import Header from "../_components/Header";
 import SearchResults from "./_components/SearchResults";
+import { useEffect, useState } from "react";
 
 export default function MapPage() {
+  const [lat, setLat] = useState<number>(37.566535);
+  const [lng, setLng] = useState<number>(126.977969);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(function (pos) {
+      console.log(pos);
+      setLat(pos.coords.latitude);
+      setLng(pos.coords.longitude);
+    });
+  }, []);
+
   return (
     <>
       <div className="relative bg-white w-full min-h-[650px] h-[100vh] flex flex-col items-center scroll-auto">
@@ -21,10 +33,10 @@ export default function MapPage() {
           </div>
         </div>
         <Map
-          center={{ lat: 37.566535, lng: 126.977969 }}
+          center={{ lat: lat, lng: lng }}
           style={{ width: "100%", height: "100%" }}
         >
-          <MarkerClusterer averageCenter={true} minLevel={10} />
+          <MapMarker position={{ lat: lat, lng: lng }}></MapMarker>
         </Map>
         <SearchResults />
       </div>
