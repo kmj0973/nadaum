@@ -1,5 +1,6 @@
 import { deleteCookie } from "@/global/cookies";
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 type AuthState = {
   uid: string | null;
@@ -9,15 +10,22 @@ type AuthState = {
   logout: () => void;
 };
 
-export const useAuthStore = create<AuthState>((set) => ({
-  uid: null,
-  displayName: null,
-  email: null,
-  saveUser: (displayName, email, uid) => {
-    set({ displayName, email, uid });
-  },
-  logout: () => {
-    deleteCookie("token");
-    set({ displayName: null, email: null, uid: null });
-  },
-}));
+export const useAuthStore = create<AuthState>()(
+  persist(
+    (set) => ({
+      uid: null,
+      displayName: null,
+      email: null,
+      saveUser: (displayName, email, uid) => {
+        set({ displayName, email, uid });
+      },
+      logout: () => {
+        deleteCookie("token");
+        set({ displayName: null, email: null, uid: null });
+      },
+    }),
+    {
+      name: "auth-store", // localStorage 키 이름
+    }
+  )
+);

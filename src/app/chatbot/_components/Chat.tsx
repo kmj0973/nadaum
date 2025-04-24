@@ -43,8 +43,17 @@ export default function Chat() {
   });
 
   useEffect(() => {
+    const getConversations = async () => {
+      if (uid) {
+        const docSnap = await getDoc(doc(db, "users", uid));
+
+        if (docSnap.exists()) {
+          setConversations(docSnap.data().conversations);
+        }
+      }
+    };
     getConversations();
-  }, []);
+  }, [uid]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -52,15 +61,6 @@ export default function Chat() {
     }
   }, [messages, conversations]);
 
-  const getConversations = async () => {
-    if (uid) {
-      const docSnap = await getDoc(doc(db, "users", uid));
-
-      if (docSnap.exists()) {
-        setConversations(docSnap.data().conversations);
-      }
-    }
-  };
   return (
     <>
       <div className="bg-white w-full min-h-[650px] h-[100vh] flex flex-col items-center scroll-auto">
