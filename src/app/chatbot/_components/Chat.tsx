@@ -1,28 +1,81 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-
+import { useEffect, useRef, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { useChat } from "@ai-sdk/react";
 import Header from "@/app/_components/Header";
 import Comment from "./Comment";
+import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "../../../../firebase/firebasedb";
+import { useAuthStore } from "@/hooks/useAuthStore";
+
+type CommentType = {
+  id: string;
+  role: string;
+  content: string;
+};
 
 export default function Chat() {
-  const { messages, input, handleInputChange, handleSubmit, status } =
-    useChat();
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [conversations, setConversations] = useState<Array<CommentType>>([]);
+
+  const uid = useAuthStore((state) => state.uid);
+
+  const { messages, input, handleInputChange, handleSubmit, status } = useChat({
+    onFinish: async (message) => {
+      const userId = uuidv4();
+      if (uid)
+        await updateDoc(doc(db, "users", uid), {
+          conversations: arrayUnion(
+            {
+              id: userId,
+              role: "user",
+              content: input,
+            },
+            {
+              id: message.id,
+              role: message.role,
+              content: message.content,
+            }
+          ),
+        });
+    },
+  });
+
+  useEffect(() => {
+    getConversations();
+  }, []);
 
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [messages]);
+  }, [messages, conversations]);
+
+  const getConversations = async () => {
+    if (uid) {
+      const docSnap = await getDoc(doc(db, "users", uid));
+
+      if (docSnap.exists()) {
+        setConversations(docSnap.data().conversations);
+      }
+    }
+  };
   return (
     <>
       <div className="bg-white w-full min-h-[650px] h-[100vh] flex flex-col items-center scroll-auto">
         <Header title="AI 챗봇" />
         {/* 채팅 영역 */}
         <div className="w-[90%] flex flex-col gap-8 py-5 mt-5 overflow-y-auto flex-1">
-          {messages.length == 0 ? (
+          {conversations &&
+            conversations.map((message) => (
+              <Comment
+                key={message.id}
+                role={message.role}
+                message={message.content}
+              />
+            ))}
+          {messages.length == 0 && conversations.length == 0 ? (
             <div className="flex justify-center items-center h-full">
               당신의 트레이너 &apos;AI 챗봇&apos;에게 물어보세요!
             </div>

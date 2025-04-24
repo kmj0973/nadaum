@@ -6,9 +6,11 @@ import { auth, db } from "../../../../firebase/firebasedb";
 import { useRouter } from "next/navigation";
 import { setCookie } from "../../../global/cookies";
 import { doc, setDoc } from "firebase/firestore";
+import { useAuthStore } from "@/hooks/useAuthStore";
 
 export default function SignUpForm() {
   const router = useRouter();
+  const saveUser = useAuthStore((state) => state.saveUser);
   const [error, setError] = useState<string | null>(null);
 
   const handleSignUp = async (e: FormEvent<HTMLFormElement>) => {
@@ -44,6 +46,7 @@ export default function SignUpForm() {
       // 유저 프로필 업데이트
       if (user) {
         await updateProfile(user, { displayName: displayName });
+        if (user.displayName) saveUser(user.displayName, email, user.uid);
         console.log("회원가입 완료:", user);
 
         //데이터베이스 추가
@@ -51,6 +54,7 @@ export default function SignUpForm() {
           uid: user.uid,
           email: user.email,
           displayName: user.displayName,
+          conversations: [],
         });
 
         setCookie("token", await user.getIdToken());

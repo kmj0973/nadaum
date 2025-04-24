@@ -5,8 +5,10 @@ import { FormEvent, useState } from "react";
 import { auth } from "../../../../firebase/firebasedb";
 import { setCookie } from "@/global/cookies";
 import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/hooks/useAuthStore";
 
 export default function LoginForm() {
+  const saveUser = useAuthStore((state) => state.saveUser);
   const [checkAll, setCheckAll] = useState<boolean>(true);
 
   const router = useRouter();
@@ -25,10 +27,9 @@ export default function LoginForm() {
         password
       );
       const user = userCredential.user;
-
+      if (user.displayName) saveUser(user.displayName, email, user.uid);
       if (user) {
         setCheckAll(true);
-        console.log("로그인 완료:", user);
 
         setCookie("token", await user.getIdToken());
         // 리다이렉션
