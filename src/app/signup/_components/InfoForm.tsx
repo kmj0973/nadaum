@@ -1,7 +1,6 @@
 "use client";
 
 import { doc, setDoc } from "firebase/firestore";
-import Link from "next/link";
 import { FormEvent, useState } from "react";
 import { db } from "../../../../firebase/firebasedb";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -146,9 +145,6 @@ export default function InfoForm() {
           <div className="absolute bottom-13 text-red-500">{error}</div>
         </button>
       </form>
-      <Link href="/" className="text-[#767676] text-sm">
-        다음에 입력하기
-      </Link>
     </div>
   );
 }

@@ -1,20 +1,11 @@
-"use client";
-
-import { useAuthStore } from "@/hooks/useAuthStore";
-import { useRouter } from "next/navigation";
+import Info from "./_components/Info";
+import Header from "../_components/Header";
 
 export default function MyPage() {
-  const logout = useAuthStore((state) => state.logout);
-  const router = useRouter();
-
   return (
-    <div
-      onClick={() => {
-        logout();
-        router.replace("/");
-      }}
-    >
-      auth
+    <div className="bg-white w-full min-h-[650px] h-[100vh] flex flex-col items-center scroll-auto">
+      <Header title="마이페이지" />
+      <Info />
     </div>
   );
 }

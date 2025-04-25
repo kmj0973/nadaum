@@ -21,7 +21,7 @@ export default function MapContent() {
   }, []);
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full">
       <div className="w-full h-[40px] bg-white flex justify-around items-center">
         <div className="text-sm flex justify-center items-center flex-1 p-2 border-b-2">
           공공체육시설
