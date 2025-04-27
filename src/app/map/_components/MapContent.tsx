@@ -5,7 +5,7 @@ import { Map, MapMarker, useKakaoLoader } from "react-kakao-maps-sdk";
 
 export default function MapContent() {
   useKakaoLoader({
-    appkey: process.env.NEXT_PUBLIC_KAKAO_MAP_API_KEY,
+    appkey: process.env.NEXT_PUBLIC_KAKAO_MAP_API_KEY as string,
     libraries: ["clusterer", "drawing", "services"],
   });
 
@@ -21,8 +21,8 @@ export default function MapContent() {
   }, []);
 
   return (
-    <div className="w-full">
-      <div className="w-full h-[40px] bg-white flex justify-around items-center">
+    <div className="w-full flex-1">
+      <div className="w-full bg-white flex justify-around items-center">
         <div className="text-sm flex justify-center items-center flex-1 p-2 border-b-2">
           공공체육시설
         </div>
@@ -33,10 +33,7 @@ export default function MapContent() {
           산책로
         </div>
       </div>
-      <Map
-        center={{ lat: lat, lng: lng }}
-        style={{ width: "100%", height: "100%" }}
-      >
+      <Map center={{ lat: lat, lng: lng }} className="w-full h-full">
         <MapMarker position={{ lat: lat, lng: lng }}></MapMarker>
       </Map>
     </div>
