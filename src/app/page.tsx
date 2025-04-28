@@ -3,6 +3,9 @@ import photomap from "../../public/images/photomap.png";
 import Navbar from "./_components/Navbar";
 import Link from "next/link";
 import CardSlider from "./_components/CardSlider";
+import HealthSvg from "./_svg/HealthSvg";
+import AiSvg from "./_svg/AiSvg";
+import WalkSvg from "./_svg/WalkSvg";
 
 export default function HomePage() {
   return (
@@ -15,36 +18,45 @@ export default function HomePage() {
           </div>
           <Link
             href="/map?q=gym"
-            className="bg-[#F8F8F8] rounded-2xl w-[85%] h-[100px] tablet:h-[120px] cursor-pointer"
+            className="bg-[#F8F8F8] flex justify-between rounded-2xl drop-shadow-lg w-[85%] h-[100px] tablet:h-[120px] cursor-pointer"
           >
-            <div className="text-[16px] tablet:text-xl font-semibold mt-5 ml-5">
-              동네 헬스장 찾기
+            <div>
+              <div className="text-[16px] tablet:text-xl font-semibold mt-5 ml-5">
+                동네 헬스장 찾기
+              </div>
+              <div className="text-[13px] tablet:text-base text-[#767676] font-normal ml-5">
+                운동이 쉬워지는 첫걸음
+              </div>
             </div>
-            <div className="text-[13px] tablet:text-base text-[#767676] font-normal ml-5">
-              운동이 쉬워지는 첫걸음
-            </div>
+            <HealthSvg />
           </Link>
           <Link
             href="/diet"
-            className="bg-[#F8F8F8] rounded-2xl w-[85%] h-[100px] tablet:h-[120px] cursor-pointer"
+            className="bg-[#F8F8F8] flex justify-between rounded-2xl drop-shadow-lg w-[85%] h-[100px] tablet:h-[120px] cursor-pointer"
           >
-            <div className="text-[16px] tablet:text-xl font-semibold mt-5 ml-5">
-              나만의 식단 추천
+            <div>
+              <div className="text-[16px] tablet:text-xl font-semibold mt-5 ml-5">
+                나만의 식단 추천
+              </div>
+              <div className="text-[13px] tablet:text-base text-[#767676] font-normal ml-5">
+                내 취향대로, 내 입맛대로
+              </div>
             </div>
-            <div className="text-[13px] tablet:text-base text-[#767676] font-normal ml-5">
-              내 취향대로, 내 입맛대로
-            </div>
+            <WalkSvg />
           </Link>
           <Link
             href="/chatbot"
-            className="bg-[#F8F8F8] rounded-2xl w-[85%] h-[100px] tablet:h-[120px] cursor-pointer"
+            className="bg-[#F8F8F8] flex justify-between rounded-2xl drop-shadow-lg w-[85%] h-[100px] tablet:h-[120px] cursor-pointer"
           >
-            <div className="text-[16px] tablet:text-xl font-semibold mt-5 ml-5">
-              캐릭터 챗봇 AI
+            <div>
+              <div className="text-[16px] tablet:text-xl font-semibold mt-5 ml-5">
+                캐릭터 챗봇 AI
+              </div>
+              <div className="text-[13px] tablet:text-base text-[#767676] font-normal ml-5">
+                나만의 PT 선생님 만들기
+              </div>
             </div>
-            <div className="text-[13px] tablet:text-base text-[#767676] font-normal ml-5">
-              나만의 PT 선생님 만들기
-            </div>
+            <AiSvg />
           </Link>
         </div>
         <div className="bg-[#18B491] rounded-xl shadow-md w-[90%] h-[564px] tablet:h-[670px] flex flex-col items-center justify-center gap-5 tablet:gap-7 p-4">

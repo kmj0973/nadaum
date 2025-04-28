@@ -18,7 +18,6 @@ type CommentType = {
 export default function Chat() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [conversations, setConversations] = useState<Array<CommentType>>([]);
-
   const uid = useAuthStore((state) => state.uid);
 
   const { messages, input, handleInputChange, handleSubmit, status } = useChat({

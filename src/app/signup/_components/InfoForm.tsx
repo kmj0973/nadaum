@@ -86,12 +86,12 @@ export default function InfoForm() {
       >
         <div>
           <div className="mb-4">성별</div>
-          <div className="bg-[#F1F1F5] cursor-pointer w-full h-[55px] rounded-2xl flex items-center justify-center py-1 gap-1">
+          <div className="bg-[#F1F1F5] cursor-pointer w-full h-[55px] rounded-xl flex items-center justify-center py-1 gap-1">
             <div
               onClick={handleMale}
               className={`${
                 gender === "male" && "bg-white"
-              } h-full rounded-2xl flex-1 flex justify-center items-center ml-1 drop-shadow-md`}
+              } h-full rounded-xl flex-1 flex justify-center items-center ml-1 drop-shadow-md transition duration-200 ease-in-out`}
             >
               남자
             </div>
@@ -99,7 +99,7 @@ export default function InfoForm() {
               onClick={handleFemale}
               className={`${
                 gender === "female" && "bg-white"
-              } h-full rounded-2xl flex-1 flex justify-center items-center mr-1 drop-shadow-md`}
+              } h-full rounded-xl flex-1 flex justify-center items-center mr-1 drop-shadow-md transition duration-200 ease-in-out`}
             >
               여자
             </div>

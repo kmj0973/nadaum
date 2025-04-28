@@ -169,16 +169,16 @@ export default function Info() {
             총 칼로리 500kcal
           </div>
         </div>
+        <button
+          onClick={() => {
+            logout();
+            router.replace("/login");
+          }}
+          className="bg-[#EFEFEF] text-[#7C7C7C] px-5 py-1 rounded-2xl cursor-pointer mb-5"
+        >
+          로그아웃
+        </button>
       </div>
-      <button
-        onClick={() => {
-          logout();
-          router.replace("/login");
-        }}
-        className="bg-[#EFEFEF] text-[#7C7C7C] px-5 py-1 rounded-2xl cursor-pointer mb-5"
-      >
-        로그아웃
-      </button>
     </div>
   );
 }
