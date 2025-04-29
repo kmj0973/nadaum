@@ -7,6 +7,7 @@ import basicProfile from "@/../public/images/basicProfile.png";
 import { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../../../firebase/firebasedb";
+import Link from "next/link";
 
 export default function Info() {
   const logout = useAuthStore((state) => state.logout);
@@ -58,7 +59,7 @@ export default function Info() {
         <div className="bg-[#18B491] w-[90%] h-[140px] rounded-2xl flex flex-col items-center">
           <div className="w-[90%] flex justify-between items-center py-2">
             <div className="font-bold text-white">나의 정보</div>
-            <div className="cursor-pointer">
+            <Link href="/mypage/info" className="cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="14"
@@ -71,7 +72,7 @@ export default function Info() {
                   fill="white"
                 />
               </svg>
-            </div>
+            </Link>
           </div>
           <div className="w-[90%] flex-1 flex items-end pb-2">
             <div className="h-full flex-2/5 flex flex-col items-center">

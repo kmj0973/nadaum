@@ -1,6 +1,6 @@
 import Header from "@/app/_components/Header";
-import InfoForm from "../_components/InfoForm";
 import Link from "next/link";
+import InfoForm from "../_components/InfoForm";
 
 export default function InfoPage() {
   return (
@@ -9,7 +9,7 @@ export default function InfoPage() {
       <div className="bg-white w-full h-full flex flex-col items-center justify-around">
         <InfoForm />
       </div>
-      <Link href="/" className="text-[#767676] text-sm mb-2">
+      <Link href="/mypage" className="text-[#767676] text-sm mb-2">
         다음에 입력하기
       </Link>
     </div>

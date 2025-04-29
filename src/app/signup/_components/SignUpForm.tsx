@@ -47,7 +47,6 @@ export default function SignUpForm() {
       if (user) {
         await updateProfile(user, { displayName: displayName });
         if (user.displayName) saveUser(user.displayName, email, user.uid);
-        console.log("회원가입 완료:", user);
 
         //데이터베이스 추가
         await setDoc(doc(db, "users", user.uid), {

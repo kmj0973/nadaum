@@ -1,0 +1,29 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { useAuthStore } from "@/hooks/useAuthStore";
+import { db } from "../../../../firebase/firebasedb";
+
+export default function Answer() {
+  const [content, setContet] = useState<string | undefined>(undefined);
+  const uid = useAuthStore((state) => state.uid);
+  useEffect(() => {
+    const getContent = async () => {
+      if (!uid) return;
+      const docSnap = await getDoc(doc(db, "users", uid));
+      setContet(docSnap.data()?.diet);
+    };
+    getContent();
+  }, [uid]);
+
+  return (
+    <div className="w-[90%] flex flex-col justify-center items-center py-5 overflow-y-auto flex-1">
+      {content === undefined ? (
+        <div className="text-[#b7b7b7]">아직 식단을 만들지 않았어요</div>
+      ) : (
+        <div className="whitespace-pre-line">{content}</div>
+      )}
+    </div>
+  );
+}

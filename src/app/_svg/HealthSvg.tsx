@@ -1,7 +1,7 @@
 export default function HealthSvg() {
   return (
     <svg
-      className="mr-3 mt-3"
+      className="mr-2 mt-2"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       width="88"

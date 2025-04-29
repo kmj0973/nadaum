@@ -5,17 +5,32 @@ import Link from "next/link";
 import CardSlider from "./_components/CardSlider";
 import HealthSvg from "./_svg/HealthSvg";
 import AiSvg from "./_svg/AiSvg";
-import WalkSvg from "./_svg/WalkSvg";
+import DietSvg from "./_svg/DietSvg";
+import DietCard from "./_components/DietCard";
 
 export default function HomePage() {
   return (
     <div className="relative w-full min-h-[750px] h-[100vh] flex flex-col items-center scroll-auto">
       <div className="bg-white w-full flex flex-col items-center gap-5 py-5 pb-[66px]">
-        <CardSlider />
+        <DietCard />
         <div className="rounded-xl shadow-md w-[90%] h-[466px] tablet:h-[540px] flex flex-col items-center justify-center gap-4">
           <div className="w-[85%] text-xl tablet:text-2xl font-bold mb-3">
             나다운 모습 가꾸기
           </div>
+          <Link
+            href="/chatbot"
+            className="bg-[#F8F8F8] flex justify-between rounded-2xl drop-shadow-lg w-[85%] h-[100px] tablet:h-[120px] cursor-pointer"
+          >
+            <div>
+              <div className="text-[16px] tablet:text-xl font-semibold mt-5 ml-5">
+                캐릭터 챗봇 AI
+              </div>
+              <div className="text-[13px] tablet:text-base text-[#767676] font-normal ml-5">
+                나만의 PT 선생님 만들기
+              </div>
+            </div>
+            <AiSvg />
+          </Link>
           <Link
             href="/map?q=gym"
             className="bg-[#F8F8F8] flex justify-between rounded-2xl drop-shadow-lg w-[85%] h-[100px] tablet:h-[120px] cursor-pointer"
@@ -42,21 +57,7 @@ export default function HomePage() {
                 내 취향대로, 내 입맛대로
               </div>
             </div>
-            <WalkSvg />
-          </Link>
-          <Link
-            href="/chatbot"
-            className="bg-[#F8F8F8] flex justify-between rounded-2xl drop-shadow-lg w-[85%] h-[100px] tablet:h-[120px] cursor-pointer"
-          >
-            <div>
-              <div className="text-[16px] tablet:text-xl font-semibold mt-5 ml-5">
-                캐릭터 챗봇 AI
-              </div>
-              <div className="text-[13px] tablet:text-base text-[#767676] font-normal ml-5">
-                나만의 PT 선생님 만들기
-              </div>
-            </div>
-            <AiSvg />
+            <DietSvg />
           </Link>
         </div>
         <div className="bg-[#18B491] rounded-xl shadow-md w-[90%] h-[564px] tablet:h-[670px] flex flex-col items-center justify-center gap-5 tablet:gap-7 p-4">
@@ -99,14 +100,7 @@ export default function HomePage() {
             </Link>
           </div>
         </div>
-        <div className="w-[90%] flex justify-between items-center">
-          <div className="font-semibold rounded-xl shadow-md w-[48%] h-[140px] tablet:h-[200px] p-2">
-            출석체크
-          </div>
-          <div className="font-semibold rounded-xl shadow-md w-[48%] h-[140px] tablet:h-[200px] p-2">
-            운동기록
-          </div>
-        </div>
+        <CardSlider />
       </div>
       <Navbar />
     </div>
