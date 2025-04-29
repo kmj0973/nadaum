@@ -62,13 +62,24 @@ export default function DietCard() {
           <div>{dayName}요일</div>
         </div>
         <div className="flex">
-          <div onClick={() => setDiet("breakfast")} className="">
+          <div
+            onClick={() => setDiet("breakfast")}
+            className={`${
+              diet !== "breakfast" && "hover:scale-150 duration-200"
+            }`}
+          >
             <BreakfastSvg diet={diet} />
           </div>
-          <div onClick={() => setDiet("lunch")}>
+          <div
+            onClick={() => setDiet("lunch")}
+            className={`${diet !== "lunch" && "hover:scale-150 duration-200"}`}
+          >
             <LunchSvg diet={diet} />
           </div>
-          <div onClick={() => setDiet("dinner")}>
+          <div
+            onClick={() => setDiet("dinner")}
+            className={`${diet !== "dinner" && "hover:scale-150 duration-200"}`}
+          >
             <DinnerSvg diet={diet} />
           </div>
         </div>
