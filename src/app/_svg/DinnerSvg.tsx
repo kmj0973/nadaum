@@ -4,7 +4,7 @@ export default function DinnerSvg({ diet }: { diet: string }) {
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       className={`
-    w-[45px] h-[50px]
+    w-[45px] h-[50px] tablet:w-[55px] tablet:h-[60px]
     transition-transform duration-200 ease-in-out
     ${diet === "dinner" ? "scale-100" : "scale-50"}
   `}

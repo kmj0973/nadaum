@@ -78,7 +78,7 @@ export default function Navbar() {
         href="/"
         className="flex flex-col justify-center items-center gap-0.5 flex-1 relative"
       >
-        <div className="absolute -bottom-2 rounded-[50%] bg-white p-3 shadow-md">
+        <div className="absolute -bottom-2 tablet:-bottom-4 rounded-[50%] bg-white p-3 shadow-md">
           <HomeSvg />
         </div>
       </Link>
@@ -88,8 +88,7 @@ export default function Navbar() {
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
+          className="w-[24px] h-[24px]"
           viewBox="0 0 24 24"
           fill="none"
         >

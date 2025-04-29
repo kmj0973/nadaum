@@ -89,21 +89,21 @@ export default function DietPage() {
     <div className="bg-white w-full min-h-[650px] h-[100vh] flex flex-col items-center scroll-auto gap-5">
       <Header title="오늘의 식단" />
       <div className="flex flex-col justify-center items-center gap-3 mb-2">
-        <div className="font-semibold text-3xl text-center">
+        <div className="font-semibold text-3xl tablet:text-4xl text-center">
           먹고싶은 음식을
           <br />
           선택해주세요
         </div>
-        <div className="text-[#676767] text-[12px]">
+        <div className="text-[#676767] text-[12px] tablet:text-base">
           원하는 음식으로 식단을 구성해드려요.
         </div>
       </div>
-      <div className="grid grid-cols-3 grid-rows-3 gap-3 flex-1">
+      <div className="grid grid-cols-3 grid-rows-3 gap-3 tablet:gap-5 flex-1">
         <div
           onClick={() => setFood("육류")}
-          className="flex flex-col justify-center items-center text-sm gap-1 cursor-pointer"
+          className="flex flex-col justify-center items-center text-sm tablet:text-base gap-1 cursor-pointer"
         >
-          <div className="w-[100px] h-[100px] rounded-[50%] overflow-hidden relative">
+          <div className="w-[100px] h-[100px] tablet:w-[130px] tablet:h-[130px] rounded-[50%] overflow-hidden relative">
             <Image
               className="object-cover"
               src={meats}
@@ -114,6 +114,7 @@ export default function DietPage() {
               <div className="absolute w-full h-full bg-black/50 flex justify-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
+                  className="tablet:absolute tablet:top-2"
                   width="33"
                   height="59"
                   viewBox="0 0 33 59"
@@ -134,9 +135,9 @@ export default function DietPage() {
         </div>
         <div
           onClick={() => setFood("해산물류")}
-          className="flex flex-col justify-center items-center text-sm gap-1 cursor-pointer"
+          className="flex flex-col justify-center items-center text-sm tablet:text-base gap-1 cursor-pointer"
         >
-          <div className="w-[100px] h-[100px] rounded-[50%] overflow-hidden relative">
+          <div className="w-[100px] h-[100px] tablet:w-[130px] tablet:h-[130px] rounded-[50%] overflow-hidden relative">
             <Image
               className="object-cover"
               src={fishes}
@@ -147,6 +148,7 @@ export default function DietPage() {
               <div className="absolute w-full h-full bg-black/50 flex justify-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
+                  className="tablet:absolute tablet:top-2"
                   width="33"
                   height="59"
                   viewBox="0 0 33 59"
@@ -167,9 +169,9 @@ export default function DietPage() {
         </div>
         <div
           onClick={() => setFood("유제품류")}
-          className="flex flex-col justify-center items-center text-sm gap-1 cursor-pointer"
+          className="flex flex-col justify-center items-center text-sm tablet:text-base gap-1 cursor-pointer"
         >
-          <div className="w-[100px] h-[100px] rounded-[50%] overflow-hidden relative">
+          <div className="w-[100px] h-[100px] tablet:w-[130px] tablet:h-[130px] rounded-[50%] overflow-hidden relative">
             <Image
               className="object-cover"
               src={milks}
@@ -180,6 +182,7 @@ export default function DietPage() {
               <div className="absolute w-full h-full bg-black/50 flex justify-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
+                  className="tablet:absolute tablet:top-2"
                   width="33"
                   height="59"
                   viewBox="0 0 33 59"
@@ -201,9 +204,9 @@ export default function DietPage() {
 
         <div
           onClick={() => setFood("채소류")}
-          className="flex flex-col justify-center items-center text-sm gap-1 cursor-pointer"
+          className="flex flex-col justify-center items-center text-sm tablet:text-base gap-1 cursor-pointer"
         >
-          <div className="w-[100px] h-[100px] rounded-[50%] overflow-hidden relative">
+          <div className="w-[100px] h-[100px] tablet:w-[130px] tablet:h-[130px] rounded-[50%] overflow-hidden relative">
             <Image
               className="object-cover"
               src={vegetables}
@@ -214,6 +217,7 @@ export default function DietPage() {
               <div className="absolute w-full h-full bg-black/50 flex justify-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
+                  className="tablet:absolute tablet:top-2"
                   width="33"
                   height="59"
                   viewBox="0 0 33 59"
@@ -234,9 +238,9 @@ export default function DietPage() {
         </div>
         <div
           onClick={() => setFood("과일류")}
-          className="flex flex-col justify-center items-center text-sm gap-1 cursor-pointer"
+          className="flex flex-col justify-center items-center text-sm tablet:text-base gap-1 cursor-pointer"
         >
-          <div className="w-[100px] h-[100px] rounded-[50%] overflow-hidden relative">
+          <div className="w-[100px] h-[100px] tablet:w-[130px] tablet:h-[130px] rounded-[50%] overflow-hidden relative">
             <Image
               className="object-cover"
               src={fruits}
@@ -247,6 +251,7 @@ export default function DietPage() {
               <div className="absolute w-full h-full bg-black/50 flex justify-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
+                  className="tablet:absolute tablet:top-2"
                   width="33"
                   height="59"
                   viewBox="0 0 33 59"
@@ -267,9 +272,9 @@ export default function DietPage() {
         </div>
         <div
           onClick={() => setFood("곡류/견과류")}
-          className="flex flex-col justify-center items-center text-sm gap-1 cursor-pointer"
+          className="flex flex-col justify-center items-center text-sm tablet:text-base gap-1 cursor-pointer"
         >
-          <div className="w-[100px] h-[100px] rounded-[50%] overflow-hidden relative">
+          <div className="w-[100px] h-[100px] tablet:w-[130px] tablet:h-[130px] rounded-[50%] overflow-hidden relative">
             <Image
               className="object-cover"
               src={nuts}
@@ -280,6 +285,7 @@ export default function DietPage() {
               <div className="absolute w-full h-full bg-black/50 flex justify-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
+                  className="tablet:absolute tablet:top-2"
                   width="33"
                   height="59"
                   viewBox="0 0 33 59"
@@ -307,7 +313,7 @@ export default function DietPage() {
       </a>
       <button
         onClick={handleRequestDiet}
-        className={`w-full h-[80px] bg-[#18B491] text-white text-center pb-5 transition-transform duration-300 ease-in-out  ${
+        className={`cursor-pointer w-full h-[80px] bg-[#18B491] text-white text-center pb-5 transition-transform duration-300 ease-in-out  ${
           food === null ? "translate-y-full" : "translate-y-0"
         }`}
       >

@@ -22,7 +22,7 @@ export default function Answer() {
       {content === undefined ? (
         <div className="text-[#b7b7b7]">아직 식단을 만들지 않았어요</div>
       ) : (
-        <div className="whitespace-pre-line">{content}</div>
+        <div className="whitespace-pre-line tablet:text-xl">{content}</div>
       )}
     </div>
   );

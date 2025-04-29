@@ -11,10 +11,10 @@ export default function SelectForm() {
 
   return (
     <>
-      <div className="w-[80%] h-full text-[12px] flex flex-col items-center gap-10 flex-1">
+      <div className="w-[80%] h-full text-[12px] tablet:text-base flex flex-col items-center gap-10 flex-1">
         <div className="w-full">
           <div className="mb-2">목적</div>
-          <div className="bg-[#F1F1F5] cursor-pointer w-full h-[40px] rounded-2xl flex items-center justify-center p-0.5 gap-0.5">
+          <div className="bg-[#F1F1F5] cursor-pointer w-full h-[40px] tablet:h-[50px] rounded-2xl flex items-center justify-center p-0.5 gap-0.5">
             <div
               onClick={() => setPurpose("다이어트")}
               className={`${purpose == "다이어트" && "bg-white"}
@@ -40,7 +40,7 @@ export default function SelectForm() {
         </div>
         <div className="w-full">
           <div className="mb-2">탄수화물</div>
-          <div className="bg-[#F1F1F5] cursor-pointer w-full h-[40px] rounded-2xl flex items-center justify-center p-0.5 gap-0.5">
+          <div className="bg-[#F1F1F5] cursor-pointer w-full h-[40px] tablet:h-[50px]  rounded-2xl flex items-center justify-center p-0.5 gap-0.5">
             <div
               onClick={() => setCarb("낮음")}
               className={`${carb == "낮음" && "bg-white"}
@@ -66,7 +66,7 @@ export default function SelectForm() {
         </div>
         <div className="w-full">
           <div className="mb-2">단백질</div>
-          <div className="bg-[#F1F1F5] cursor-pointer w-full h-[40px] rounded-2xl flex items-center justify-center p-0.5 gap-0.5">
+          <div className="bg-[#F1F1F5] cursor-pointer w-full h-[40px] tablet:h-[50px]  rounded-2xl flex items-center justify-center p-0.5 gap-0.5">
             <div
               onClick={() => setProtein("낮음")}
               className={`${protein == "낮음" && "bg-white"}
@@ -92,7 +92,7 @@ export default function SelectForm() {
         </div>
         <div className="w-full">
           <div className="mb-2">지방</div>
-          <div className="bg-[#F1F1F5] cursor-pointer w-full h-[40px] rounded-2xl flex items-center justify-center p-0.5 gap-0.5">
+          <div className="bg-[#F1F1F5] cursor-pointer w-full h-[40px] tablet:h-[50px]  rounded-2xl flex items-center justify-center p-0.5 gap-0.5">
             <div
               onClick={() => setGrassi("낮음")}
               className={`${grassi == "낮음" && "bg-white"}

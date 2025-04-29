@@ -17,6 +17,14 @@ export default function DietCard() {
   const [dinner, setDinner] = useState<string>("");
   const uid = useAuthStore((state) => state.uid);
 
+  const now = new Date();
+
+  const dayIndex = now.getDay(); // 1 (월요일)
+  const days = ["일", "월", "화", "수", "목", "금", "토"];
+  const dayName = days[dayIndex];
+  const month = now.getMonth() + 1;
+  const day = now.getDate();
+
   useEffect(() => {
     const getContent = async () => {
       if (!uid) return;
@@ -38,7 +46,7 @@ export default function DietCard() {
 
   return (
     <div
-      className={`relative rounded-xl shadow-md w-[90%] h-[166px] tablet:h-[186px] flex transition-colors duration-300 ease-in-out ${
+      className={`relative rounded-xl shadow-md w-[90%] h-[166px] tablet:h-[186px] flex justify-around transition-colors duration-300 ease-in-out ${
         diet == "breakfast"
           ? "bg-[#3AA5D3]"
           : diet == "lunch"
@@ -46,10 +54,12 @@ export default function DietCard() {
           : "bg-[#2061A3]"
       }`}
     >
-      <div className="flex flex-col h-full justify-around py-4 pl-3 gap-2">
-        <div className="text-[32px]/9 font-bold text-white">
-          <div>04월 25일</div>
-          <div>금요일</div>
+      <div className="flex-1 flex flex-col h-full justify-around tablet:items-center py-4 pl-3 gap-2">
+        <div className="text-[32px]/9 tablet:text-[44px]/12 font-bold text-white">
+          <div>
+            {month}월 {day}일
+          </div>
+          <div>{dayName}요일</div>
         </div>
         <div className="flex">
           <div onClick={() => setDiet("breakfast")} className="">
@@ -65,7 +75,7 @@ export default function DietCard() {
       </div>
       <Link
         href="/diet"
-        className="flex-1 flex justify-center items-center overflow-scroll whitespace-pre-line text-white text-[14px] font-semibold p-2"
+        className="flex-1 flex justify-center items-center overflow-y-auto whitespace-pre-line text-white text-[14px] tablet:text-base font-semibold p-2"
       >
         {content === undefined
           ? "식단을 만들어주세요!"

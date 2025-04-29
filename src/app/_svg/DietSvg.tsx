@@ -1,7 +1,7 @@
 export default function WalkSvg() {
   return (
     <svg
-      className="mr-2 mt-2"
+      className="mr-2 mt-2 tablet:mt-4 tablet:mr-4"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       width="89"

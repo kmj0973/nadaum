@@ -3,8 +3,7 @@ export default function HomeSvg() {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
-      width="31"
-      height="31"
+      className="w-[31px] h-[31px] tablet:w-[40px] tablet:h-[40px]"
       viewBox="0 0 31 31"
       fill="none"
     >
