@@ -86,7 +86,7 @@ export default function DietPage() {
   };
 
   return (
-    <div className="bg-white w-full min-h-[650px] h-[100vh] flex flex-col items-center scroll-auto gap-5">
+    <div className="relative bg-white w-full min-h-[650px] h-[100vh] flex flex-col items-center scroll-auto gap-5">
       <Header title="오늘의 식단" />
       <div className="flex flex-col justify-center items-center gap-3 mb-2">
         <div className="font-semibold text-3xl tablet:text-4xl text-center">
@@ -98,7 +98,7 @@ export default function DietPage() {
           원하는 음식으로 식단을 구성해드려요.
         </div>
       </div>
-      <div className="grid grid-cols-3 grid-rows-3 gap-3 tablet:gap-5 flex-1">
+      <div className="grid grid-cols-3 gap-3 tablet:gap-5 items-start">
         <div
           onClick={() => setFood("육류")}
           className="flex flex-col justify-center items-center text-sm tablet:text-base gap-1 cursor-pointer"
@@ -305,24 +305,26 @@ export default function DietPage() {
           <div className="font-medium">곡류/견과류</div>
         </div>
       </div>
-      <a
-        className="text-[12px] text-[#b7b7b7]"
-        href="https://www.freepik.com/free-photo/top-view-meat-with-garlic-herbs_9263566.htm"
-      >
-        이미지 출처 freepik
-      </a>
-      <button
-        onClick={handleRequestDiet}
-        className={`cursor-pointer w-full h-[80px] bg-[#18B491] text-white text-center pb-5 transition-transform duration-300 ease-in-out  ${
-          food === null ? "translate-y-full" : "translate-y-0"
-        }`}
-      >
-        {status != "ready" ? (
-          <div className="text-white animate-pulse">답변 생성중...</div>
-        ) : (
-          "완료"
-        )}
-      </button>
+      <div className="w-full h-[80px] flex justify-center items-center">
+        <a
+          className="text-[12px] text-[#b7b7b7]"
+          href="https://www.freepik.com/free-photo/top-view-meat-with-garlic-herbs_9263566.htm"
+        >
+          이미지 출처 freepik
+        </a>
+        <button
+          onClick={handleRequestDiet}
+          className={`absolute bottom-0 cursor-pointer w-full max-w-[500px] bg-[#18B491] text-white text-center transition-all duration-300 ease-in-out   ${
+            food === null ? "h-0" : "h-[80px] pb-5"
+          }`}
+        >
+          {food === null ? null : status != "ready" ? (
+            <div className="text-white animate-pulse">답변 생성중...</div>
+          ) : (
+            <div className="">완료</div>
+          )}
+        </button>
+      </div>
     </div>
   );
 }

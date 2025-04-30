@@ -20,7 +20,7 @@ export default function Answer() {
 
   console.log(content);
   return (
-    <div className="w-[90%] flex flex-col justify-center items-center py-5 overflow-y-auto flex-1">
+    <div className="w-[90%] flex flex-col justify-start items-center py-5 overflow-y-auto flex-1">
       {content === undefined ? (
         <div className="text-[#b7b7b7]">아직 식단을 만들지 않았어요</div>
       ) : (

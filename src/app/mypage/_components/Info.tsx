@@ -125,7 +125,7 @@ export default function Info() {
           </div>
         </div>
         <div className="flex flex-col justify-center items-center font-semibold tablet:text-xl">
-          당신의 기초대사량은?
+          나의 기초대사량은?
           {!info.age ? (
             <div className="text-3xl text-[#18B491] font-bold">
               정보를 입력해주세요
