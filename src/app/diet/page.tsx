@@ -10,6 +10,7 @@ export default function DietPage() {
         <Answer />
         <Link
           href="/diet/purpose"
+          replace
           className=" w-full min-h-[80px] bg-[#18B491] text-white text-center pt-4"
         >
           식단 만들기
