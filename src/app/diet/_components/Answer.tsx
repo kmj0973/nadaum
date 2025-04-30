@@ -8,15 +8,23 @@ import { db } from "../../../../firebase/firebasedb";
 export default function Answer() {
   const [content, setContet] = useState<string | undefined>(undefined);
   const uid = useAuthStore((state) => state.uid);
+
   useEffect(() => {
     const getContent = async () => {
       if (!uid) return;
       const docSnap = await getDoc(doc(db, "users", uid));
-      setContet(docSnap.data()?.diet);
+      setContet(
+        docSnap
+          .data()
+          ?.diet.split(/(아침|점심|저녁|총 칼로리)/g)
+          .map((p: string) => p.trim())
+          .filter(Boolean)
+      );
     };
     getContent();
   }, [uid]);
 
+  console.log(content);
   return (
     <div className="w-[90%] flex flex-col justify-center items-center py-5 overflow-y-auto flex-1">
       {content === undefined ? (

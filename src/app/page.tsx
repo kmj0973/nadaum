@@ -76,7 +76,7 @@ export default function HomePage() {
 
           <Link
             href="/map?q=public"
-            className="w-full max-w-[240px] tablet:max-w-[280px]"
+            className="w-full max-w-[240px] tablet:max-w-[280px] relative"
           >
             <Image
               src={photomap}
@@ -88,13 +88,14 @@ export default function HomePage() {
                 height: "auto",
               }}
             />
+            <div className="absolute top-0 w-full h-full max-h-[280px] bg-black/30 rounded-xl"></div>
           </Link>
           <div className="w-full flex flex-col justify-center items-center">
             <div className="text-white tablet:text-lg mb-2 tablet:mb-4">
               원하는 지역을 찾아보세요
             </div>
             <Link href="/map?q=public" className="cursor-pointer">
-              <div className="bg-white/15 text-white flex justify-center items-center border-1 border-white rounded-2xl tablet:text-lg w-[120px] tablet:w-[140px] h-[36px] tablet:h-[40px]">
+              <div className="bg-white/15 hover:bg-white/40 animate-color duration-200 text-white flex justify-center items-center border-1 border-white rounded-2xl tablet:text-lg w-[120px] tablet:w-[140px] h-[36px] tablet:h-[40px]">
                 검색하기
               </div>
             </Link>

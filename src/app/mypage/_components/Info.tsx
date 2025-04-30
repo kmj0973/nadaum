@@ -156,7 +156,7 @@ export default function Info() {
             logout();
             router.replace("/login");
           }}
-          className="bg-[#EFEFEF] text-[#7C7C7C] px-5 py-1 rounded-2xl cursor-pointer m-5 tablet:m-10"
+          className="bg-[#EFEFEF] text-[#7C7C7C] px-5 py-1 rounded-2xl cursor-pointer mb-5 tablet:m-10"
         >
           로그아웃
         </button>

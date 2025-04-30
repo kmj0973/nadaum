@@ -134,7 +134,7 @@ export default function DietPage() {
           <div className="font-medium">육류</div>
         </div>
         <div
-          onClick={() => setFood("해산물류")}
+          onClick={() => setFood("수산물류")}
           className="flex flex-col justify-center items-center text-sm tablet:text-base gap-1 cursor-pointer"
         >
           <div className="w-[100px] h-[100px] tablet:w-[130px] tablet:h-[130px] rounded-[50%] overflow-hidden relative">
@@ -144,7 +144,7 @@ export default function DietPage() {
               fill
               alt="https://www.freepik.com/free-photo/close-up-spoons-bowls-with-nuts_2278043.htm"
             />
-            {food == "해산물류" ? (
+            {food == "수산물류" ? (
               <div className="absolute w-full h-full bg-black/50 flex justify-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -165,7 +165,7 @@ export default function DietPage() {
               </div>
             ) : null}
           </div>
-          <div className="font-medium">해산물류</div>
+          <div className="font-medium">수산물류</div>
         </div>
         <div
           onClick={() => setFood("유제품류")}
