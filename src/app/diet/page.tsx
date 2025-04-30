@@ -4,15 +4,17 @@ import Answer from "./_components/Answer";
 
 export default function DietPage() {
   return (
-    <div className="bg-white w-full min-h-[650px] h-[100vh] flex flex-col items-center scroll-auto gap-5">
+    <div className=" bg-white w-full min-h-[650px] h-screen flex flex-col items-center scroll-auto gap-5">
       <Header title="오늘의 식단" />
-      <Answer />
-      <Link
-        href="/diet/purpose"
-        className="w-full h-[80px] bg-[#18B491] text-white text-center pt-4"
-      >
-        식단 만들기
-      </Link>
+      <div className="bg-white w-full h-full flex flex-col items-center justify-around">
+        <Answer />
+        <Link
+          href="/diet/purpose"
+          className=" w-full min-h-[80px] bg-[#18B491] text-white text-center pt-4"
+        >
+          식단 만들기
+        </Link>
+      </div>
     </div>
   );
 }

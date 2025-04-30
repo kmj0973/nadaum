@@ -119,6 +119,7 @@ export default function SelectForm() {
       </div>
       <Link
         href={`/diet/food?p=${purpose}&carb=${carb}&protein=${protein}&grassi=${grassi}`}
+        replace
         className="w-full min-h-[80px] bg-[#18B491] text-white text-center pt-4"
       >
         다음으로
