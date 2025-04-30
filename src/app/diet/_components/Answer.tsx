@@ -13,13 +13,7 @@ export default function Answer() {
     const getContent = async () => {
       if (!uid) return;
       const docSnap = await getDoc(doc(db, "users", uid));
-      setContet(
-        docSnap
-          .data()
-          ?.diet.split(/(아침|점심|저녁|총 칼로리)/g)
-          .map((p: string) => p.trim())
-          .filter(Boolean)
-      );
+      setContet(docSnap.data()?.diet);
     };
     getContent();
   }, [uid]);
