@@ -11,7 +11,7 @@ import DietCard from "./_components/DietCard";
 export default function HomePage() {
   return (
     <div className="relative w-full min-h-[750px] h-[100vh] flex flex-col items-center scroll-auto">
-      <div className="bg-white w-full flex flex-col items-center gap-5 py-5 pb-[66px]">
+      <div className="bg-white w-full flex flex-col items-center gap-5 py-5 pb-[76px]">
         <DietCard />
         <div className="rounded-xl shadow-md w-[90%] h-[466px] tablet:h-[540px] flex flex-col items-center justify-center gap-4">
           <div className="w-[85%] text-xl tablet:text-2xl font-bold mb-3">

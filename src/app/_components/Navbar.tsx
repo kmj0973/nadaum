@@ -3,7 +3,7 @@ import HomeSvg from "../_svg/HomeSvg";
 
 export default function Navbar() {
   return (
-    <nav className="z-10 bg-white fixed bottom-0 pb-5 w-full max-w-[500px] h-[60px] drop-shadow-xl flex justify-around items-center ">
+    <nav className="z-10 bg-white fixed bottom-0 pb-5 pt-2 w-full max-w-[500px] h-[70px] drop-shadow-xl flex justify-around items-center ">
       <Link
         href="/diet"
         className="flex flex-col justify-center items-center gap-0.5 flex-1"
