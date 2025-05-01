@@ -14,6 +14,8 @@ export default function Answer() {
     const getContent = async () => {
       if (!uid) return;
       const docSnap = await getDoc(doc(db, "users", uid));
+
+      if (!docSnap.data()?.diet) return;
       setContet(
         docSnap
           .data()
@@ -25,7 +27,6 @@ export default function Answer() {
     getContent();
   }, [uid]);
 
-  console.log(content);
   return (
     <div className="w-[90%] min-h-[650px] flex flex-col justify-center items-center py-5 flex-1 gap-5">
       {content === undefined ? (

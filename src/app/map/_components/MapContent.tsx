@@ -14,7 +14,6 @@ export default function MapContent() {
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (pos) {
-      console.log(pos);
       setLat(pos.coords.latitude);
       setLng(pos.coords.longitude);
     });
