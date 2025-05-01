@@ -1,7 +1,7 @@
 {
-  "name": "Nadaum 나다움",
-  "short_name": "Nadaum",
-  "description": "All in one health care application",
+  "name": "나다움 Nadaum",
+  "short_name": "나다움",
+  "description": "나를 위한 건강 루틴, 하나의 앱에서 완성하다",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

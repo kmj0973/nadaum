@@ -8,11 +8,11 @@ import fruits from "@/../public/images/fruits.jpg";
 import milks from "@/../public/images/milks.jpg";
 import nuts from "@/../public/images/nuts.jpg";
 import vegetables from "@/../public/images/vegetables.jpg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useChat } from "@ai-sdk/react";
 import { useAuthStore } from "@/hooks/useAuthStore";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../../../firebase/firebasedb";
 
 export default function DietPage() {
@@ -30,6 +30,28 @@ export default function DietPage() {
     },
   });
   const [food, setFood] = useState<string | null>(null);
+  const [info, setInfo] = useState<{
+    age: number;
+    gender: string;
+    height: number;
+    weight: number;
+  }>({ age: 0, gender: "", height: 0, weight: 0 });
+
+  useEffect(() => {
+    const getInfo = async () => {
+      if (uid) {
+        const docSnap = await getDoc(doc(db, "users", uid));
+        if (docSnap.data) {
+          const age = docSnap.data()?.age;
+          const gender = docSnap.data()?.gender;
+          const height = docSnap.data()?.height;
+          const weight = docSnap.data()?.weight;
+          setInfo({ age, gender, height, weight });
+        }
+      }
+    };
+    getInfo();
+  }, [uid]);
 
   const handleRequestDiet = async () => {
     if (!params) return;
@@ -43,7 +65,11 @@ export default function DietPage() {
       content: `
 당신은 전문 영양사입니다.
 
-목표: ${purpose}을 위한 식단을 작성해주세요.
+목표: 사용자의 신체 정보(성별:${info.gender}, 나이:만${2025 - info.age}세, 키:${
+        info.height
+      }cm, 몸무게:${
+        info.weight
+      }kg)를 바탕으로 ${purpose}을 위한 식단을 작성해주세요.
 포함할 음식 카테고리: ${food} 중심으로 식사를 구성하세요.
 탄수화물, 단백질, 지방의 함량 수준은 "낮음", "중간", "높음" 으로 구분합니다.
 - 탄수화물: ${carb}
@@ -79,6 +105,8 @@ export default function DietPage() {
 • 나물 반찬 (기름 최소)
 • 두부 반모 (또는 삶은 콩 50g)
 • 샐러드 (양배추, 상추, 치커리 + 발사믹 드레싱)
+
+총 칼로리: 1800kcal
 `,
     });
 
