@@ -35,7 +35,7 @@ export default function Answer() {
           <EachDietCard time={content[0]} content={content[1]} />
           <EachDietCard time={content[2]} content={content[3]} />
           <EachDietCard time={content[4]} content={content[5]} />
-          <div className="text-[#676767] text-sm tablet:text-lg flex items-center gap-2 pb-3">
+          <div className="text-[#676767] text-sm tablet:text-lg flex items-center gap-2 py-3">
             총 칼로리
             <span className="font-extrabold text-3xl tablet:text-4xl text-[#18B491]">
               {content[7].slice(3)}

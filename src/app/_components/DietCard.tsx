@@ -54,7 +54,7 @@ export default function DietCard() {
           : "bg-[#2061A3]"
       }`}
     >
-      <div className="flex-1 flex flex-col h-full justify-around tablet:items-center py-4 pl-3 gap-2">
+      <div className="flex-1 flex flex-col h-full justify-around py-4 pl-3 gap-2">
         <div className="text-[32px]/9 tablet:text-[44px]/12 font-bold text-white">
           <div>
             {month}월 {day}일

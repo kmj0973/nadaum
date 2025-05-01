@@ -98,12 +98,12 @@ export default function DietPage() {
           원하는 음식으로 식단을 구성해드려요.
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-3 tablet:gap-5 items-start">
+      <div className="grid grid-cols-3 gap-3 tablet:gap-5 items-start mx-5">
         <div
           onClick={() => setFood("육류")}
           className="flex flex-col justify-center items-center text-sm tablet:text-base gap-1 cursor-pointer"
         >
-          <div className="w-[100px] h-[100px] tablet:w-[130px] tablet:h-[130px] rounded-[50%] overflow-hidden relative">
+          <div className="w-[100px] h-[100px] tablet:w-[120px] tablet:h-[120px] rounded-[50%] overflow-hidden relative">
             <Image
               className="object-cover"
               src={meats}
@@ -137,7 +137,7 @@ export default function DietPage() {
           onClick={() => setFood("수산물류")}
           className="flex flex-col justify-center items-center text-sm tablet:text-base gap-1 cursor-pointer"
         >
-          <div className="w-[100px] h-[100px] tablet:w-[130px] tablet:h-[130px] rounded-[50%] overflow-hidden relative">
+          <div className="w-[100px] h-[100px] tablet:w-[120px] tablet:h-[120px] rounded-[50%] overflow-hidden relative">
             <Image
               className="object-cover"
               src={fishes}
@@ -171,7 +171,7 @@ export default function DietPage() {
           onClick={() => setFood("유제품류")}
           className="flex flex-col justify-center items-center text-sm tablet:text-base gap-1 cursor-pointer"
         >
-          <div className="w-[100px] h-[100px] tablet:w-[130px] tablet:h-[130px] rounded-[50%] overflow-hidden relative">
+          <div className="w-[100px] h-[100px] tablet:w-[120px] tablet:h-[120px] rounded-[50%] overflow-hidden relative">
             <Image
               className="object-cover"
               src={milks}
@@ -206,7 +206,7 @@ export default function DietPage() {
           onClick={() => setFood("채소류")}
           className="flex flex-col justify-center items-center text-sm tablet:text-base gap-1 cursor-pointer"
         >
-          <div className="w-[100px] h-[100px] tablet:w-[130px] tablet:h-[130px] rounded-[50%] overflow-hidden relative">
+          <div className="w-[100px] h-[100px] tablet:w-[120px] tablet:h-[120px] rounded-[50%] overflow-hidden relative">
             <Image
               className="object-cover"
               src={vegetables}
@@ -240,7 +240,7 @@ export default function DietPage() {
           onClick={() => setFood("과일류")}
           className="flex flex-col justify-center items-center text-sm tablet:text-base gap-1 cursor-pointer"
         >
-          <div className="w-[100px] h-[100px] tablet:w-[130px] tablet:h-[130px] rounded-[50%] overflow-hidden relative">
+          <div className="w-[100px] h-[100px] tablet:w-[120px] tablet:h-[120px] rounded-[50%] overflow-hidden relative">
             <Image
               className="object-cover"
               src={fruits}
@@ -274,7 +274,7 @@ export default function DietPage() {
           onClick={() => setFood("곡류/견과류")}
           className="flex flex-col justify-center items-center text-sm tablet:text-base gap-1 cursor-pointer"
         >
-          <div className="w-[100px] h-[100px] tablet:w-[130px] tablet:h-[130px] rounded-[50%] overflow-hidden relative">
+          <div className="w-[100px] h-[100px] tablet:w-[120px] tablet:h-[120px] rounded-[50%] overflow-hidden relative">
             <Image
               className="object-cover"
               src={nuts}
