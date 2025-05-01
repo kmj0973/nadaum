@@ -19,9 +19,7 @@ export default function CardSlider() {
   useEffect(() => {
     const getPublicData = async () => {
       try {
-        const res = await fetch(
-          `http://openapi.seoul.go.kr:8088/${process.env.NEXT_PUBLIC_OPENDATA_API_KEY}/json/culturalEventInfo/1/5/`
-        );
+        const res = await fetch(`/api/publicdata`);
         const json = await res.json();
         setPublicData(json.culturalEventInfo.row); // 여기서 제대로 확인됨
       } catch (err) {
