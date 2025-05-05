@@ -4,8 +4,8 @@
   "description": "나를 위한 건강 루틴, 하나의 앱에서 완성하다",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#18B491",
+  "background_color": "#18B491",
+  "theme_color": "#ffffff",
   "icons": [
     {
       "src": "/icons/basicProfile.jpg",
