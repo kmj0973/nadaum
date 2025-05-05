@@ -28,7 +28,7 @@ export default function Answer() {
   }, [uid]);
 
   return (
-    <div className="w-[90%] min-h-[650px] flex flex-col justify-center items-center py-5 flex-1 gap-5">
+    <div className="w-[90%] flex flex-col justify-center items-center py-5 flex-1 gap-5">
       {content === undefined ? (
         <div className="text-[#b7b7b7]">아직 식단을 만들지 않았어요</div>
       ) : (
@@ -39,7 +39,7 @@ export default function Answer() {
           <div className="text-[#676767] text-sm tablet:text-lg flex items-center gap-2 py-3">
             총 칼로리
             <span className="font-extrabold text-3xl tablet:text-4xl text-[#18B491]">
-              {content[7].slice(3)}
+              {content[7].slice(2)}
             </span>
           </div>
         </>

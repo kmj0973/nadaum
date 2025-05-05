@@ -108,9 +108,10 @@ export default function InfoForm() {
 
         <div className="flex flex-col">
           <label htmlFor="age" className="mb-2">
-            나이(출생연도)
+            출생연도
           </label>
           <input
+            placeholder="예) 2001"
             name="age"
             className="outline-none border-b-1 border-[#767676] focus:border-black px-0.5 py-2 text-black text-sm tablet:text-base"
             type="number"
@@ -122,6 +123,7 @@ export default function InfoForm() {
             키(cm)
           </label>
           <input
+            placeholder="예) 175"
             name="height"
             className="outline-none border-b-1 border-[#767676] focus:border-black px-0.5 py-2 text-black text-sm tablet:text-base"
             type="number"
@@ -132,6 +134,7 @@ export default function InfoForm() {
             몸무게(kg)
           </label>
           <input
+            placeholder="예) 70"
             name="weight"
             className="outline-none border-b-1 border-[#767676] focus:border-black px-0.5 py-2 text-black text-sm tablet:text-base"
             type="number"

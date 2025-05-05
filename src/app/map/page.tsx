@@ -1,6 +1,5 @@
 import Header from "../_components/Header";
 import MapContent from "./_components/MapContent";
-import SearchResults from "./_components/SearchResults";
 
 export default async function MapPage() {
   // const data = await fetch(
@@ -14,7 +13,6 @@ export default async function MapPage() {
       <div className="relative bg-white w-full min-h-[650px] h-[100vh] flex flex-col items-center scroll-auto">
         <Header title="" />
         <MapContent />
-        <SearchResults />
       </div>
     </>
   );
