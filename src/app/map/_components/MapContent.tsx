@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { Map, MapMarker, useKakaoLoader } from "react-kakao-maps-sdk";
-import SearchResults from "./SearchResults";
 
 export default function MapContent() {
   useKakaoLoader({
@@ -106,7 +105,7 @@ export default function MapContent() {
           </MapMarker>
         ))}
       </Map>
-      <SearchResults datas={datas} />
+      {/* <SearchResults datas={datas} /> */}
     </div>
   );
 }
