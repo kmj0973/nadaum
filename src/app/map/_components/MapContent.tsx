@@ -46,40 +46,37 @@ export default function MapContent() {
   const clickHandle = () => {
     const ps = new kakao.maps.services.Places();
 
-    ps.keywordSearch(
-      "서울특별시 구로구 오류로 36-25 50플러스 수영장",
-      (data, status) => {
-        if (status === kakao.maps.services.Status.OK) {
-          // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-          // LatLngBounds 객체에 좌표를 추가합니다
-          const bounds = new kakao.maps.LatLngBounds();
-          const markers = [];
+    ps.keywordSearch("서울특별시 헬스장", (data, status) => {
+      if (status === kakao.maps.services.Status.OK) {
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+        // LatLngBounds 객체에 좌표를 추가합니다
+        const bounds = new kakao.maps.LatLngBounds();
+        const markers = [];
 
-          for (let i = 0; i < data.length; i++) {
-            markers.push({
-              position: {
-                lat: Number(data[i].y),
-                lng: Number(data[i].x),
-              },
-              content: data[i].place_name,
-            });
+        for (let i = 0; i < data.length; i++) {
+          markers.push({
+            position: {
+              lat: Number(data[i].y),
+              lng: Number(data[i].x),
+            },
+            content: data[i].place_name,
+          });
 
-            setLat(Number(data[i].y));
-            setLng(Number(data[i].x));
+          setLat(Number(data[i].y));
+          setLng(Number(data[i].x));
 
-            bounds.extend(
-              new kakao.maps.LatLng(Number(data[i].y), Number(data[i].x))
-            );
-          }
-          setMarkers(markers);
+          bounds.extend(
+            new kakao.maps.LatLng(Number(data[i].y), Number(data[i].x))
+          );
         }
+        setMarkers(markers);
       }
-    );
+    });
     console.log(markers);
   };
 
   return (
-    <div className="w-full h-full flex-1">
+    <div className="w-full flex-1 flex flex-col">
       <div className="w-full bg-white flex justify-around items-center">
         <div
           onClick={clickHandle}
@@ -94,7 +91,7 @@ export default function MapContent() {
           산책로
         </div>
       </div>
-      <Map center={{ lat: lat, lng: lng }} className="w-full h-full">
+      <Map center={{ lat: lat, lng: lng }} className="w-full flex-1">
         {/* <MapMarker position={{ lat: lat, lng: lng }}></MapMarker> */}
 
         {markers.map((marker) => (
