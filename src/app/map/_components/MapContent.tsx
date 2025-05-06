@@ -6,20 +6,7 @@ import SearchResults from "./SearchResults";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useMapStore } from "@/hooks/useMapStore";
-
-type datasType = {
-  AR_CD_NAME: string;
-  FT_KIND_NAME: string;
-  FT_HOMEPAGE: string;
-  FT_TITLE: string;
-  FT_ADDR: string;
-  FT_ADDR_DETAIL: string;
-  FT_MONEY: string;
-  FT_WD_TIME: string;
-  FT_WE_TIME: string;
-  FT_PHONE: string;
-  FT_PARK: string;
-};
+import { datasType } from "../_types/types";
 
 export default function MapContent() {
   useKakaoLoader({
@@ -60,20 +47,42 @@ export default function MapContent() {
         console.error("공공데이터 요청 실패:", err);
       }
     };
+    const fetchGymData = async () => {
+      try {
+        const res = await fetch(`/api/gym`);
+        const json = await res.json();
+        const rows: datasType[] = json.LOCALDATA_104201.row;
 
-    fetchFacilitiesData();
-  }, []);
+        setDatas(rows);
+      } catch (err) {
+        console.error("공공데이터 요청 실패:", err);
+      }
+    };
+    if (params.get("q") === "public") fetchFacilitiesData();
+    else if (params.get("q") === "gym") fetchGymData();
+  }, [params]);
 
+  console.log(filteredDatas);
   useEffect(() => {
     if (!datas.length || !location || !exercise) return;
+    let filtered: datasType[] = [];
 
-    const filtered = datas.filter(
-      (data) =>
-        data.AR_CD_NAME + "구" === location && data.FT_KIND_NAME === exercise
-    );
+    if (params.get("q") === "public") {
+      filtered = datas.filter(
+        (data) =>
+          data.AR_CD_NAME + "구" === location && data.FT_KIND_NAME === exercise
+      );
+    } else if (params.get("q") === "gym") {
+      filtered = datas.filter((data) => {
+        const addressParts = data.RDNWHLADDR?.split(" ");
+        const district =
+          addressParts && addressParts.length >= 2 ? addressParts[1] : "";
+        return district === location;
+      });
+    }
 
     setFilteredDatas(filtered);
-  }, [datas, location, exercise]);
+  }, [params, datas, location, exercise]);
 
   const handleFilteredMarkers = () => {
     if (!filteredDatas.length) return;
@@ -86,16 +95,16 @@ export default function MapContent() {
     Promise.all(
       filteredDatas.map((item) => {
         return new Promise<void>((resolve) => {
-          ps.keywordSearch(item.FT_ADDR, (data, status) => {
+          ps.keywordSearch(item.FT_ADDR || item.BPLCNM, (data, status) => {
             if (status === kakao.maps.services.Status.OK && data.length > 0) {
               const first = data[0];
-              console.log(first);
+
               newMarkers.push({
                 position: {
                   lat: Number(first.y),
                   lng: Number(first.x),
                 },
-                content: item.FT_TITLE,
+                content: item.FT_TITLE || item.BPLCNM,
               });
 
               bounds.extend(
@@ -138,7 +147,7 @@ export default function MapContent() {
         >
           헬스장
         </Link>
-        <Link
+        {/* <Link
           href="/map?q=walking"
           replace
           className={`text-sm flex justify-center items-center flex-1 p-2 ${
@@ -146,10 +155,9 @@ export default function MapContent() {
           }`}
         >
           산책로
-        </Link>
+        </Link> */}
       </div>
       <Map center={{ lat: lat, lng: lng }} className="w-full flex-1">
-        <MapMarker position={{ lat: lat, lng: lng }}></MapMarker>
         {markers.map((marker) => (
           <MapMarker
             key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
