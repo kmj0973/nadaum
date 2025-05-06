@@ -30,8 +30,10 @@ export default function MapContent() {
   const params = useSearchParams();
   const location = useMapStore((state) => state.location);
   const exercise = useMapStore((state) => state.exercise);
-  const [lat, setLat] = useState<number>(37.566535);
-  const [lng, setLng] = useState<number>(126.977969);
+  const lat = useMapStore((state) => state.lat);
+  const lng = useMapStore((state) => state.lng);
+  const setLat = useMapStore((state) => state.setLat);
+  const setLng = useMapStore((state) => state.setLng);
   //데이터를 가져와서 필터를 하고 필터에 따른 맵마커, 그 정보를 서치결과에 보내주기
   const [filteredDatas, setFilteredDatas] = useState<datasType[]>([]);
   const [datas, setDatas] = useState<datasType[]>([]);
@@ -47,30 +49,25 @@ export default function MapContent() {
   >([]);
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(function (pos) {
-      setLat(pos.coords.latitude);
-      setLng(pos.coords.longitude);
-    });
+    const fetchFacilitiesData = async () => {
+      try {
+        const res = await fetch(`/api/facilities`);
+        const json = await res.json();
+        const rows: datasType[] = json.facilities.row;
 
-    const getData = async () => {
-      const data = await fetch(
-        `http://openapi.seoul.go.kr:8088/${process.env.NEXT_PUBLIC_OPENDATA_API_KEY}/json/facilities/1/800/`
-      )
-        .then((res) => res.json())
-        .then((json) => json.facilities.row);
-      setDatas(data);
+        setDatas(rows);
+      } catch (err) {
+        console.error("공공데이터 요청 실패:", err);
+      }
     };
 
-    getData();
-    console.log("fetch");
+    fetchFacilitiesData();
   }, []);
 
   useEffect(() => {
-    if (datas.length === 0) return;
+    if (!datas.length || !location || !exercise) return;
 
-    let filtered: datasType[] = [];
-
-    filtered = datas.filter(
+    const filtered = datas.filter(
       (data) =>
         data.AR_CD_NAME + "구" === location && data.FT_KIND_NAME === exercise
     );
