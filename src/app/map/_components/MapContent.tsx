@@ -2,6 +2,24 @@
 
 import { useEffect, useState } from "react";
 import { Map, MapMarker, useKakaoLoader } from "react-kakao-maps-sdk";
+import SearchResults from "./SearchResults";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useMapStore } from "@/hooks/useMapStore";
+
+type datasType = {
+  AR_CD_NAME: string;
+  FT_KIND_NAME: string;
+  FT_HOMEPAGE: string;
+  FT_TITLE: string;
+  FT_ADDR: string;
+  FT_ADDR_DETAIL: string;
+  FT_MONEY: string;
+  FT_WD_TIME: string;
+  FT_WE_TIME: string;
+  FT_PHONE: string;
+  FT_PARK: string;
+};
 
 export default function MapContent() {
   useKakaoLoader({
@@ -9,10 +27,14 @@ export default function MapContent() {
     libraries: ["clusterer", "drawing", "services"],
   });
 
+  const params = useSearchParams();
+  const location = useMapStore((state) => state.location);
+  const exercise = useMapStore((state) => state.exercise);
   const [lat, setLat] = useState<number>(37.566535);
   const [lng, setLng] = useState<number>(126.977969);
   //데이터를 가져와서 필터를 하고 필터에 따른 맵마커, 그 정보를 서치결과에 보내주기
-  const [datas, setDatas] = useState([]);
+  const [filteredDatas, setFilteredDatas] = useState<datasType[]>([]);
+  const [datas, setDatas] = useState<datasType[]>([]);
   const [info, setInfo] = useState<{
     position: { lat: number; lng: number };
     content: string;
@@ -32,7 +54,7 @@ export default function MapContent() {
 
     const getData = async () => {
       const data = await fetch(
-        `http://openapi.seoul.go.kr:8088/${process.env.NEXT_PUBLIC_OPENDATA_API_KEY}/json/facilities/1/10/`
+        `http://openapi.seoul.go.kr:8088/${process.env.NEXT_PUBLIC_OPENDATA_API_KEY}/json/facilities/1/800/`
       )
         .then((res) => res.json())
         .then((json) => json.facilities.row);
@@ -40,59 +62,97 @@ export default function MapContent() {
     };
 
     getData();
+    console.log("fetch");
   }, []);
-  console.log(datas);
-  const clickHandle = () => {
+
+  useEffect(() => {
+    if (datas.length === 0) return;
+
+    let filtered: datasType[] = [];
+
+    filtered = datas.filter(
+      (data) =>
+        data.AR_CD_NAME + "구" === location && data.FT_KIND_NAME === exercise
+    );
+
+    setFilteredDatas(filtered);
+  }, [datas, location, exercise]);
+
+  const handleFilteredMarkers = () => {
+    if (!filteredDatas.length) return;
+
     const ps = new kakao.maps.services.Places();
+    const bounds = new kakao.maps.LatLngBounds();
+    const newMarkers: typeof markers = [];
 
-    ps.keywordSearch("서울특별시 헬스장", (data, status) => {
-      if (status === kakao.maps.services.Status.OK) {
-        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-        // LatLngBounds 객체에 좌표를 추가합니다
-        const bounds = new kakao.maps.LatLngBounds();
-        const markers = [];
+    // Promise.all로 모든 비동기 요청 처리
+    Promise.all(
+      filteredDatas.map((item) => {
+        return new Promise<void>((resolve) => {
+          ps.keywordSearch(item.FT_ADDR, (data, status) => {
+            if (status === kakao.maps.services.Status.OK && data.length > 0) {
+              const first = data[0];
+              console.log(first);
+              newMarkers.push({
+                position: {
+                  lat: Number(first.y),
+                  lng: Number(first.x),
+                },
+                content: item.FT_TITLE,
+              });
 
-        for (let i = 0; i < data.length; i++) {
-          markers.push({
-            position: {
-              lat: Number(data[i].y),
-              lng: Number(data[i].x),
-            },
-            content: data[i].place_name,
+              bounds.extend(
+                new kakao.maps.LatLng(Number(first.y), Number(first.x))
+              );
+            }
+            resolve(); // 검색 완료 시 Promise 해제
           });
-
-          setLat(Number(data[i].y));
-          setLng(Number(data[i].x));
-
-          bounds.extend(
-            new kakao.maps.LatLng(Number(data[i].y), Number(data[i].x))
-          );
-        }
-        setMarkers(markers);
+        });
+      })
+    ).then(() => {
+      setMarkers(newMarkers);
+      if (newMarkers.length > 0) {
+        setLat(newMarkers[0].position.lat);
+        setLng(newMarkers[0].position.lng);
+      } else {
+        alert("검색된 장소가 없습니다.");
       }
     });
-    console.log(markers);
   };
 
   return (
     <div className="w-full flex-1 flex flex-col">
       <div className="w-full bg-white flex justify-around items-center">
-        <div
-          onClick={clickHandle}
-          className="text-sm flex justify-center items-center flex-1 p-2 border-b-2"
+        <Link
+          href="/map?q=public"
+          replace
+          className={`text-sm flex justify-center items-center flex-1 p-2 ${
+            params.get("q") === "public" && "border-b-2"
+          }`}
         >
           공공체육시설
-        </div>
-        <div className="text-sm flex justify-center items-center flex-1 p-2">
+        </Link>
+        <Link
+          href="/map?q=gym"
+          replace
+          className={`text-sm flex justify-center items-center flex-1 p-2 ${
+            params.get("q") === "gym" && "border-b-2"
+          }`}
+        >
           헬스장
-        </div>
-        <div className="text-sm flex justify-center items-center flex-1 p-2">
+        </Link>
+        <Link
+          href="/map?q=walking"
+          replace
+          className={`text-sm flex justify-center items-center flex-1 p-2 ${
+            params.get("q") === "walking" && "border-b-2"
+          }`}
+        >
           산책로
-        </div>
+        </Link>
       </div>
       <Map center={{ lat: lat, lng: lng }} className="w-full flex-1">
-        {/* <MapMarker position={{ lat: lat, lng: lng }}></MapMarker> */}
-
+        <MapMarker position={{ lat: lat, lng: lng }}></MapMarker>
         {markers.map((marker) => (
           <MapMarker
             key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
@@ -100,12 +160,16 @@ export default function MapContent() {
             onClick={() => setInfo(marker)}
           >
             {info && info.content === marker.content && (
-              <div style={{ color: "#000" }}>{marker.content}</div>
+              <div className="text-center text-sm">{marker.content}</div>
             )}
           </MapMarker>
         ))}
       </Map>
-      {/* <SearchResults datas={datas} /> */}
+      <SearchResults
+        filteredDatas={filteredDatas}
+        params={params.get("q")}
+        onButtonClick={handleFilteredMarkers}
+      />
     </div>
   );
 }
