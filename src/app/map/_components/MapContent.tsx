@@ -77,7 +77,7 @@ export default function MapContent() {
         const addressParts = data.RDNWHLADDR?.split(" ");
         const district =
           addressParts && addressParts.length >= 2 ? addressParts[1] : "";
-        return district === location;
+        return district === location && data.DTLSTATENM == "영업중";
       });
     }
 
