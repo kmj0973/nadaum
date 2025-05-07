@@ -97,7 +97,7 @@ export default function SearchResults({
           onClick={onButtonClick}
           className="text-center bg-[#18B491] text-white w-[78px] h-[27px] text-[12px] drop-shadow-sm flex justify-center items-center rounded-2xl"
         >
-          적용
+          검색
         </button>
       </div>
       {params === "public" ? (

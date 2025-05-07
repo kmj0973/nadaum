@@ -5,7 +5,7 @@ export default async function MapPage() {
   return (
     <>
       <div className="relative bg-white w-full min-h-[650px] h-[100vh] flex flex-col items-center scroll-auto">
-        <Header title="" />
+        <Header title="공공체육시설" />
         <MapContent />
       </div>
     </>

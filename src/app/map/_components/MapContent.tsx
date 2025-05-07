@@ -34,7 +34,9 @@ export default function MapContent() {
       content: string;
     }[]
   >([]);
-
+  /**
+   * @returns 데이터 fetch 훅
+   */
   useEffect(() => {
     const fetchFacilitiesData = async () => {
       try {

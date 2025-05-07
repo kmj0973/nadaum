@@ -1,5 +1,3 @@
-import Image from "next/image";
-import photomap from "../../public/images/photomap.png";
 import Navbar from "./_components/Navbar";
 import Link from "next/link";
 import CardSlider from "./_components/CardSlider";
@@ -7,6 +5,7 @@ import HealthSvg from "./_svg/HealthSvg";
 import AiSvg from "./_svg/AiSvg";
 import DietSvg from "./_svg/DietSvg";
 import DietCard from "./_components/DietCard";
+import MapSvg from "./_svg/MapSvg";
 
 export default function HomePage() {
   return (
@@ -78,16 +77,7 @@ export default function HomePage() {
             href="/map?q=public"
             className="w-full max-w-[240px] tablet:max-w-[280px] relative"
           >
-            <Image
-              src={photomap}
-              alt="photomap"
-              sizes="100vw"
-              // Make the image display full width
-              style={{
-                width: "100%",
-                height: "auto",
-              }}
-            />
+            <MapSvg />
             <div className="absolute top-0 w-full h-full max-h-[280px] bg-black/30 rounded-xl"></div>
           </Link>
           <div className="w-full flex flex-col justify-center items-center">

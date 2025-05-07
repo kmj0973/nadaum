@@ -1,8 +1,7 @@
 export default function Loading() {
-  // Or a custom loading skeleton component
   return (
-    <div className="bg-white w-full min-h-[650px] h-[100vh] flex flex-col justify-center items-center scroll-auto">
-      <p className="text-gray-500 animate-pulse">Loading...</p>
+    <div className="fixed inset-0 flex items-center justify-center bg-white/90 z-50">
+      <div className="w-12 h-12 border-4 border-[#18B491] border-t-transparent rounded-full animate-spin" />
     </div>
   );
 }

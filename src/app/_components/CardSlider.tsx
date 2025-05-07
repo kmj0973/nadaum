@@ -30,7 +30,6 @@ export default function CardSlider() {
     getPublicData();
   }, []);
 
-  console.log(publicData);
   return (
     <Swiper
       className="custom-swiper-pagination relative rounded-xl shadow-md w-[90%] h-[166px] tablet:h-[186px]"

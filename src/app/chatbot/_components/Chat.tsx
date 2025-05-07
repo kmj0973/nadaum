@@ -89,7 +89,7 @@ export default function Chat() {
           )}
           {status !== "ready" && (
             <div className="text-gray-500 animate-pulse whitespace-pre-line">
-              GPT가 응답을 작성 중이에요...
+              나다운 하루를 위한 답을 준비 중입니다...
             </div>
           )}
           <div ref={scrollRef}></div>

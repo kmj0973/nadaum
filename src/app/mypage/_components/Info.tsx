@@ -9,6 +9,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../../../firebase/firebasedb";
 import Link from "next/link";
 import DietCard from "@/app/_components/DietCard";
+import Loading from "./Loading";
 
 export default function Info() {
   const logout = useAuthStore((state) => state.logout);
@@ -89,7 +90,11 @@ export default function Info() {
                 나이
               </div>
               <div className="flex-1 flex justify-center items-center font-bold text-white">
-                {!info.age ? "??세" : `만${2025 - info.age}세`}
+                {!info.age ? (
+                  <Loading color="white" />
+                ) : (
+                  `만${2025 - info.age}세`
+                )}
               </div>
             </div>
             <div className="w-[1px] h-[80%] bg-white"></div>
@@ -99,10 +104,7 @@ export default function Info() {
               </div>
               <div className="flex-1 flex flex-col justify-center items-center font-bold text-white">
                 {!info.height ? (
-                  <>
-                    <div>??cm</div>
-                    <div>??kg</div>
-                  </>
+                  <Loading color="white" />
                 ) : (
                   <>
                     <div>{info.height}cm</div>
@@ -119,7 +121,7 @@ export default function Info() {
               <div className="flex-1 flex justify-center items-center font-bold text-white">
                 {info.gender == "male" && "남"}
                 {info.gender == "female" && "여"}
-                {!info.gender && "??"}
+                {!info.gender && <Loading color="white" />}
               </div>
             </div>
           </div>
@@ -127,9 +129,13 @@ export default function Info() {
         <div className="flex flex-col justify-center items-center font-semibold tablet:text-xl">
           나의 기초대사량은?
           {!info.age ? (
-            <div className="text-3xl text-[#18B491] font-bold">
-              정보를 입력해주세요
-            </div>
+            info.age != 0 ? (
+              <div className="text-3xl text-[#18B491] font-bold">
+                정보를 입력해주세요
+              </div>
+            ) : (
+              <Loading color="[#18B491]" />
+            )
           ) : (
             <div className="text-3xl text-[#18B491] font-bold tablet:text-4xl">
               {info.gender == "male" &&
