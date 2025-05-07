@@ -14,7 +14,7 @@ export default function MapContent() {
     libraries: ["clusterer", "drawing", "services"],
   });
 
-  const params = useSearchParams();
+  const params = useSearchParams().get("q");
   const location = useMapStore((state) => state.location);
   const exercise = useMapStore((state) => state.exercise);
   const lat = useMapStore((state) => state.lat);
@@ -58,21 +58,21 @@ export default function MapContent() {
         console.error("공공데이터 요청 실패:", err);
       }
     };
-    if (params.get("q") === "public") fetchFacilitiesData();
-    else if (params.get("q") === "gym") fetchGymData();
+    if (params === "public") fetchFacilitiesData();
+    else if (params === "gym") fetchGymData();
   }, [params]);
 
-  console.log(filteredDatas);
+  //fetch data 필터링 훅
   useEffect(() => {
     if (!datas.length || !location || !exercise) return;
     let filtered: datasType[] = [];
 
-    if (params.get("q") === "public") {
+    if (params === "public") {
       filtered = datas.filter(
         (data) =>
           data.AR_CD_NAME + "구" === location && data.FT_KIND_NAME === exercise
       );
-    } else if (params.get("q") === "gym") {
+    } else if (params === "gym") {
       filtered = datas.filter((data) => {
         const addressParts = data.RDNWHLADDR?.split(" ");
         const district =
@@ -84,6 +84,54 @@ export default function MapContent() {
     setFilteredDatas(filtered);
   }, [params, datas, location, exercise]);
 
+  /**
+   *
+   * @returns 헬스장 마커 생성 핸들러
+   */
+  const handleGymFilteredMarkers = () => {
+    if (!filteredDatas.length) return;
+
+    const geocoder = new kakao.maps.services.Geocoder();
+    const bounds = new kakao.maps.LatLngBounds();
+    const newMarkers: typeof markers = [];
+
+    Promise.all(
+      filteredDatas.map((item) => {
+        return new Promise<void>((resolve) => {
+          geocoder.addressSearch(item.RDNWHLADDR || "", (result, status) => {
+            if (status === kakao.maps.services.Status.OK && result.length > 0) {
+              const { x, y } = result[0];
+
+              newMarkers.push({
+                position: {
+                  lat: Number(y),
+                  lng: Number(x),
+                },
+                content: item.BPLCNM,
+              });
+
+              bounds.extend(new kakao.maps.LatLng(Number(y), Number(x)));
+            }
+            resolve();
+          });
+        });
+      })
+    ).then(() => {
+      setMarkers(newMarkers);
+
+      if (newMarkers.length > 0) {
+        setLat(newMarkers[0].position.lat);
+        setLng(newMarkers[0].position.lng);
+      } else {
+        alert("검색된 장소가 없습니다.");
+      }
+    });
+  };
+
+  /**
+   *
+   * @returns 공공체육시설 마커 생성 핸들러
+   */
   const handleFilteredMarkers = () => {
     if (!filteredDatas.length) return;
 
@@ -133,7 +181,7 @@ export default function MapContent() {
           href="/map?q=public"
           replace
           className={`text-sm flex justify-center items-center flex-1 p-2 ${
-            params.get("q") === "public" && "border-b-2"
+            params === "public" && "border-b-2"
           }`}
         >
           공공체육시설
@@ -142,7 +190,7 @@ export default function MapContent() {
           href="/map?q=gym"
           replace
           className={`text-sm flex justify-center items-center flex-1 p-2 ${
-            params.get("q") === "gym" && "border-b-2"
+            params === "gym" && "border-b-2"
           }`}
         >
           헬스장
@@ -151,7 +199,7 @@ export default function MapContent() {
           href="/map?q=walking"
           replace
           className={`text-sm flex justify-center items-center flex-1 p-2 ${
-            params.get("q") === "walking" && "border-b-2"
+            params === "walking" && "border-b-2"
           }`}
         >
           산책로
@@ -172,8 +220,10 @@ export default function MapContent() {
       </Map>
       <SearchResults
         filteredDatas={filteredDatas}
-        params={params.get("q")}
-        onButtonClick={handleFilteredMarkers}
+        params={params}
+        onButtonClick={
+          params === "public" ? handleFilteredMarkers : handleGymFilteredMarkers
+        }
       />
     </div>
   );
