@@ -137,32 +137,34 @@ export default function MapContent() {
   const handleFilteredMarkers = () => {
     if (!filteredDatas.length) return;
 
-    const ps = new kakao.maps.services.Places();
+    const geocoder = new kakao.maps.services.Geocoder();
     const bounds = new kakao.maps.LatLngBounds();
     const newMarkers: typeof markers = [];
-
     // Promise.all로 모든 비동기 요청 처리
     Promise.all(
       filteredDatas.map((item) => {
         return new Promise<void>((resolve) => {
-          ps.keywordSearch(item.FT_ADDR || item.BPLCNM, (data, status) => {
-            if (status === kakao.maps.services.Status.OK && data.length > 0) {
-              const first = data[0];
+          geocoder.addressSearch(
+            item.FT_ADDR || item.BPLCNM,
+            (data, status) => {
+              if (status === kakao.maps.services.Status.OK && data.length > 0) {
+                const first = data[0];
 
-              newMarkers.push({
-                position: {
-                  lat: Number(first.y),
-                  lng: Number(first.x),
-                },
-                content: item.FT_TITLE || item.BPLCNM,
-              });
+                newMarkers.push({
+                  position: {
+                    lat: Number(first.y),
+                    lng: Number(first.x),
+                  },
+                  content: item.FT_TITLE || item.BPLCNM,
+                });
 
-              bounds.extend(
-                new kakao.maps.LatLng(Number(first.y), Number(first.x))
-              );
+                bounds.extend(
+                  new kakao.maps.LatLng(Number(first.y), Number(first.x))
+                );
+              }
+              resolve(); // 검색 완료 시 Promise 해제
             }
-            resolve(); // 검색 완료 시 Promise 해제
-          });
+          );
         });
       })
     ).then(() => {
@@ -197,25 +199,18 @@ export default function MapContent() {
         >
           헬스장
         </Link>
-        {/* <Link
-          href="/map?q=walking"
-          replace
-          className={`text-sm flex justify-center items-center flex-1 p-2 ${
-            params === "walking" && "border-b-2"
-          }`}
-        >
-          산책로
-        </Link> */}
       </div>
       <Map center={{ lat: lat, lng: lng }} className="w-full flex-1">
-        {markers.map((marker) => (
+        {markers.map((marker, index) => (
           <MapMarker
-            key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
+            key={index}
             position={marker.position}
             onClick={() => setInfo(marker)}
           >
             {info && info.content === marker.content && (
-              <div className="text-center text-sm">{marker.content}</div>
+              <div className=" text-center text-white text-sm w-[150px] min-h-[23px] bg-[#18B491]  flex justify-center items-center">
+                <div>{marker.content}</div>
+              </div>
             )}
           </MapMarker>
         ))}
