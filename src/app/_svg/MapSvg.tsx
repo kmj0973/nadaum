@@ -10,7 +10,7 @@ export default function MapSvg() {
       fill="none"
     >
       <rect width="240" height="240" rx="12" fill="url(#pattern0_2516_133)" />
-      <rect width="240" height="240" rx="12" fill="black" fill-opacity="0.2" />
+      <rect width="240" height="240" rx="12" fill="black" fillOpacity="0.2" />
       <defs>
         <pattern
           id="pattern0_2516_133"

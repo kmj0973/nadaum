@@ -26,7 +26,7 @@ export default function Answer() {
     };
     getContent();
   }, [uid]);
-
+  console.log(content);
   return (
     <div className="w-[90%] flex flex-col justify-center items-center py-5 flex-1 gap-5">
       {content === undefined ? (
@@ -39,7 +39,7 @@ export default function Answer() {
           <div className="text-[#676767] text-sm tablet:text-lg flex items-center gap-2 py-3">
             총 칼로리
             <span className="font-extrabold text-3xl tablet:text-4xl text-[#18B491]">
-              {content[7].slice(2,13)}
+              {content != "" && content[7].slice(2, 13)}
             </span>
           </div>
         </>
