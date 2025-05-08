@@ -99,6 +99,12 @@ export default function Chat() {
           <textarea
             value={input}
             onChange={handleInputChange}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault(); // 줄바꿈 방지
+                handleSubmit();
+              }
+            }}
             placeholder="무엇이든 물어보세요"
             className="bg-[#F2F2F2] w-[90%] resize-none outline-none my-5 p-3 pr-10 text-sm rounded-xl"
           />
