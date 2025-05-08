@@ -29,7 +29,9 @@ export default function SearchResults({
   return (
     <div
       className={`z-10 fixed bottom-0 w-full max-w-[500px] h-[370px] tablet:h-[450px] bg-white/70 backdrop-blur-2xl rounded-t-xl flex flex-col justify-start items-center py-4 gap-4 transition-transform duration-300 ease-in-out ${
-        navbarSlide ? "translate-y-0" : "translate-y-[85%]"
+        navbarSlide
+          ? "translate-y-0"
+          : "translate-y-[85%] tablet:translate-y-[88%]"
       }`}
     >
       <button onClick={handleClick} className="cursor-pointer  pt-2">

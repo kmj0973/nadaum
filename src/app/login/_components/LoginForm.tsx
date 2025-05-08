@@ -73,9 +73,6 @@ export default function LoginForm() {
           </button>
         </div>
       </form>
-      <div className="text-[#797979] font-light text-sm tablet:text-base">
-        카카오 로그인으로 시작하기
-      </div>
     </div>
   );
 }

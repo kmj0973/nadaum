@@ -86,7 +86,7 @@ export default function DietCard() {
       </div>
       <Link
         href="/diet"
-        className="flex-1 flex justify-center items-center overflow-y-auto whitespace-pre-line text-white text-[14px] tablet:text-base font-semibold p-2"
+        className="flex-1 flex justify-center items-center overflow-y-auto whitespace-pre-line text-white text-[14px] tablet:text-[15px] font-semibold p-2"
       >
         {content === undefined
           ? "식단을 만들어주세요!"
