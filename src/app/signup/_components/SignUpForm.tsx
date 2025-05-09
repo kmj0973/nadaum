@@ -7,11 +7,13 @@ import { useRouter } from "next/navigation";
 import { setCookie } from "../../../global/cookies";
 import { doc, setDoc } from "firebase/firestore";
 import { useAuthStore } from "@/hooks/useAuthStore";
+import Loading from "./Loading";
 
 export default function SignUpForm() {
   const router = useRouter();
   const saveUser = useAuthStore((state) => state.saveUser);
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const handleSignUp = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -37,6 +39,7 @@ export default function SignUpForm() {
       }
 
       // 회원가입
+      setIsLoading(false);
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -62,6 +65,7 @@ export default function SignUpForm() {
       }
     } catch (error) {
       console.log(error);
+      setIsLoading(true);
       setError("중복된 이메일입니다");
     }
   };
@@ -102,9 +106,9 @@ export default function SignUpForm() {
         <div className="relative">
           <button
             type="submit"
-            className="w-full cursor-pointer rounded-sm bg-[#18B491] mt-10 py-3 text-white text-sm tablet:text-base"
+            className="w-full flex justify-center items-center cursor-pointer rounded-sm bg-[#18B491] mt-10 py-3 text-white text-sm tablet:text-base"
           >
-            회원가입
+            {isLoading ? "회원가입" : <Loading color="white" />}
           </button>
           {!error ? null : (
             <div className="w-full text-center text-red-400 text-sm absolute top-2">
@@ -113,9 +117,6 @@ export default function SignUpForm() {
           )}
         </div>
       </form>
-      <div className="text-[#797979] font-light text-sm tablet:text-base">
-        카카오로 회원가입 하기
-      </div>
     </div>
   );
 }

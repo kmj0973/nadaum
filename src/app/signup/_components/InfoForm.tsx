@@ -140,13 +140,17 @@ export default function InfoForm() {
             type="number"
           />
         </div>
-        <button
-          type="submit"
-          className="relative cursor-pointer rounded-sm bg-[#18B491] mt-15 py-3 text-white text-sm tablet:text-base"
-        >
-          입력하기
-          <div className="absolute bottom-13 text-red-500">{error}</div>
-        </button>
+        <div className="relative">
+          <div className="w-full text-center text-red-400 text-sm absolute top-2">
+            {error}
+          </div>
+          <button
+            type="submit"
+            className="w-full cursor-pointer rounded-sm bg-[#18B491]  mt-10 py-3 text-white text-sm tablet:text-base"
+          >
+            입력하기
+          </button>
+        </div>
       </form>
     </div>
   );

@@ -73,8 +73,8 @@ export default function Info() {
             <Link href="/mypage/info" className="cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="4"
+                width="20"
+                height="8"
                 viewBox="0 0 16 4"
                 fill="none"
               >
@@ -91,7 +91,11 @@ export default function Info() {
               </div>
               <div className="flex-1 flex justify-center items-center font-bold text-white">
                 {!info.age ? (
-                  <Loading color="white" />
+                  info.age != 0 ? (
+                    <div className="text-xl text-white font-bold">??</div>
+                  ) : (
+                    <Loading color="white" />
+                  )
                 ) : (
                   `만${2025 - info.age}세`
                 )}
@@ -104,7 +108,11 @@ export default function Info() {
               </div>
               <div className="flex-1 flex flex-col justify-center items-center font-bold text-white">
                 {!info.height ? (
-                  <Loading color="white" />
+                  info.height != 0 ? (
+                    <div className="text-xl text-white font-bold">??</div>
+                  ) : (
+                    <Loading color="white" />
+                  )
                 ) : (
                   <>
                     <div>{info.height}cm</div>
@@ -119,9 +127,20 @@ export default function Info() {
                 성별
               </div>
               <div className="flex-1 flex justify-center items-center font-bold text-white">
-                {info.gender == "male" && "남"}
-                {info.gender == "female" && "여"}
-                {!info.gender && <Loading color="white" />}
+                {!info.gender ? (
+                  <>
+                    {info.gender != "" ? (
+                      <div className="text-xl">??</div>
+                    ) : (
+                      <Loading color="white" />
+                    )}
+                  </>
+                ) : (
+                  <>
+                    {info.gender === "male" && "남"}
+                    {info.gender === "female" && "여"}
+                  </>
+                )}
               </div>
             </div>
           </div>
