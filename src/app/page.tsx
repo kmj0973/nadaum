@@ -61,11 +61,11 @@ export default function HomePage() {
         </div>
         <div className="bg-[#18B491] rounded-xl shadow-md w-[90%] h-[564px] tablet:h-[670px] flex flex-col items-center justify-center gap-5 tablet:gap-7 p-4">
           <div>
-            <div className="text-white text-2xl tablet:text-3xl font-semibold text-center mb-2 tablet:mb-4">
+            <h1 className="text-white text-2xl tablet:text-3xl font-semibold text-center mb-2 tablet:mb-4">
               근처 체육시설을
               <br />
               간편하게 찾아보세요
-            </div>
+            </h1>
             <div className="text-[#EEEEEE] text-[13px] tablet:text-[16px] text-center">
               카카오맵 지도 연동 시스템을 사용하여
               <br />

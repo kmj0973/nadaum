@@ -21,7 +21,7 @@ export default function CardSlider() {
       try {
         const res = await fetch(`/api/publicdata`);
         const json = await res.json();
-        setPublicData(json.culturalEventInfo.row); // 여기서 제대로 확인됨
+        setPublicData(json.culturalEventInfo.row);
       } catch (err) {
         console.error("공공데이터 요청 실패:", err);
       }

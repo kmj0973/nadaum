@@ -5,6 +5,7 @@ const nextConfig = withPWA({
   disable: process.env.NODE_ENV === "development", // 개발 환경에서는 PWA 비활성화
   register: true,
   skipWaiting: true,
+  swcMinify: true,
   buildExcludes: [/middleware-manifest\.json$/], // 일부 캐시 제외
 });
 
