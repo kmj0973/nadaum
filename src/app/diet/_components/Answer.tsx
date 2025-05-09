@@ -26,7 +26,7 @@ export default function Answer() {
     };
     getContent();
   }, [uid]);
-  console.log(content);
+
   return (
     <div className="w-[90%] flex flex-col justify-center items-center py-5 flex-1 gap-5">
       {content === undefined ? (
