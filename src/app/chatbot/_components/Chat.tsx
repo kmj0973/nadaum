@@ -19,8 +19,19 @@ export default function Chat() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [conversations, setConversations] = useState<Array<CommentType>>([]);
   const uid = useAuthStore((state) => state.uid);
-
+  const [info, setInfo] = useState<{
+    age: number;
+    gender: string;
+    height: number;
+    weight: number;
+  }>({ age: 0, gender: "", height: 0, weight: 0 });
   const { messages, input, handleInputChange, handleSubmit, status } = useChat({
+    body: {
+      gender: info.gender,
+      age: 2025 - info.age,
+      height: info.height,
+      weight: info.weight,
+    },
     onFinish: async (message) => {
       const userId = uuidv4();
       if (uid)
@@ -40,6 +51,22 @@ export default function Chat() {
         });
     },
   });
+
+  useEffect(() => {
+    const getInfo = async () => {
+      if (uid) {
+        const docSnap = await getDoc(doc(db, "users", uid));
+        if (docSnap.data) {
+          const age = docSnap.data()?.age;
+          const gender = docSnap.data()?.gender;
+          const height = docSnap.data()?.height;
+          const weight = docSnap.data()?.weight;
+          setInfo({ age, gender, height, weight });
+        }
+      }
+    };
+    getInfo();
+  }, [uid]);
 
   useEffect(() => {
     const getConversations = async () => {
