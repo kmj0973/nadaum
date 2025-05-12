@@ -8,7 +8,7 @@ export async function POST(req: Request) {
   const { messages, gender, age, height, weight } = await req.json();
 
   const result = streamText({
-    model: openai("gpt-3.5-turbo"),
+    model: openai("gpt-4-turbo"),
     system: `
 사용자 정보:
 - 성별: ${gender}
