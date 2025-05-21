@@ -3,11 +3,10 @@
 import { doc, setDoc } from "firebase/firestore";
 import { FormEvent, useState } from "react";
 import { db } from "../../../../firebase/firebasedb";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 export default function InfoForm() {
   const param = useSearchParams();
-  const router = useRouter();
 
   const [gender, setGender] = useState<string>("male");
   const [error, setError] = useState<string>("");
@@ -69,7 +68,7 @@ export default function InfoForm() {
         { merge: true }
       );
 
-      router.replace("/");
+      window.location.href = "/";
     } catch (error) {
       console.log(error);
     }

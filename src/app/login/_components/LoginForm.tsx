@@ -3,7 +3,6 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { FormEvent, useState } from "react";
 import { auth } from "../../../../firebase/firebasedb";
-import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/hooks/useAuthStore";
 import Loading from "./Loading";
 
@@ -11,8 +10,6 @@ export default function LoginForm() {
   const saveUser = useAuthStore((state) => state.saveUser);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-
-  const router = useRouter();
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -46,7 +43,7 @@ export default function LoginForm() {
         body: JSON.stringify({ token }),
       });
 
-      router.replace("/");
+      window.location.href = "/";
     } catch (error) {
       console.log(error);
       setIsLoading(true);
