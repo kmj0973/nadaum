@@ -3,13 +3,11 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { FormEvent, useState } from "react";
 import { auth, db } from "../../../../firebase/firebasedb";
-import { useRouter } from "next/navigation";
 import { doc, setDoc } from "firebase/firestore";
 import { useAuthStore } from "@/hooks/useAuthStore";
 import Loading from "./Loading";
 
 export default function SignUpForm() {
-  const router = useRouter();
   const saveUser = useAuthStore((state) => state.saveUser);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -67,7 +65,7 @@ export default function SignUpForm() {
         body: JSON.stringify({ token }),
       });
 
-      router.push(`/signup/info?uid=${user.uid}`);
+      window.location.href = `/signup/info?uid=${user.uid}`;
     } catch (error) {
       console.log(error);
       setIsLoading(true);
