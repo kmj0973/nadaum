@@ -4,7 +4,6 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { FormEvent, useState } from "react";
 import { auth, db } from "../../../../firebase/firebasedb";
 import { useRouter } from "next/navigation";
-import { setCookie } from "../../../global/cookies";
 import { doc, setDoc } from "firebase/firestore";
 import { useAuthStore } from "@/hooks/useAuthStore";
 import Loading from "./Loading";
@@ -58,11 +57,17 @@ export default function SignUpForm() {
           displayName: user.displayName,
           conversations: [],
         });
-
-        setCookie("token", await user.getIdToken());
-        // 리다이렉션
-        router.push(`/signup/info?uid=${user.uid}`);
       }
+      const token = await user.getIdToken();
+
+      // 서버에 토큰 전달 → 서버가 HttpOnly 쿠키로 설정
+      await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token }),
+      });
+
+      router.push(`/signup/info?uid=${user.uid}`);
     } catch (error) {
       console.log(error);
       setIsLoading(true);

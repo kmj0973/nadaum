@@ -3,7 +3,6 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { FormEvent, useState } from "react";
 import { auth } from "../../../../firebase/firebasedb";
-import { setCookie } from "@/global/cookies";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/hooks/useAuthStore";
 import Loading from "./Loading";
@@ -38,11 +37,16 @@ export default function LoginForm() {
       );
       const user = userCredential.user;
       if (user.displayName) saveUser(user.displayName, email, user.uid);
-      if (user) {
-        setCookie("token", await user.getIdToken());
-        // 리다이렉션
-        router.replace("/");
-      }
+      const token = await user.getIdToken();
+
+      // 서버에 토큰 전달 → 서버가 HttpOnly 쿠키로 설정
+      await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token }),
+      });
+
+      router.replace("/");
     } catch (error) {
       console.log(error);
       setIsLoading(true);
