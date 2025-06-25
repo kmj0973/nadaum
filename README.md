@@ -31,14 +31,14 @@
 
 ## :closed_book:주요 기능
 
-| ![Animation](https://github.com/user-attachments/assets/41c3bebc-d1a8-4578-974c-44d78c399df9) |![Animation](https://github.com/kmj0973/spacestation/assets/92308258/e3bff4c0-2cec-483d-9e30-28120899658f) |
+| ![Animation](https://github.com/user-attachments/assets/41c3bebc-d1a8-4578-974c-44d78c399df9) |![Animation](https://github.com/user-attachments/assets/c6f0b2d3-3414-42c0-b9e4-2eb44bfb424e)|
 |:--------------------:|:--------------------:|
 | 메인 홈 페이지 | 로그인, 회원가입 페이지 | 
 
-| ![Animation](https://github.com/user-attachments/assets/e759ba8b-609c-4382-9fb4-cf6b026b017b)|![Animation](https://github.com/kmj0973/spacestation/assets/92308258/e3bff4c0-2cec-483d-9e30-28120899658f) |
+| ![Animation](https://github.com/user-attachments/assets/e759ba8b-609c-4382-9fb4-cf6b026b017b)|![Animation](https://github.com/user-attachments/assets/13c3f57d-e822-4598-a7a1-ef91c22dd86d)|
 |:--------------------:|:--------------------:|
 | 공공체육시설 페이지 | 오늘의 식단 페이지 | 
 
-| ![Animation](https://github.com/user-attachments/assets/9cd0cda4-d8ce-47a8-ba85-6eabbba143c2)|![Animation](https://github.com/kmj0973/spacestation/assets/92308258/e3bff4c0-2cec-483d-9e30-28120899658f) |
+| ![Animation](https://github.com/user-attachments/assets/9cd0cda4-d8ce-47a8-ba85-6eabbba143c2)|![Animation](https://github.com/user-attachments/assets/9e5cf35d-a1ca-4ea2-965a-f89b091f312f)|
 |:--------------------:|:--------------------:|
 | AI챗봇 페이지 | 마이페이지 |
