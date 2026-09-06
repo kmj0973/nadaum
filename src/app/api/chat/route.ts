@@ -1,10 +1,24 @@
 import { openai } from "@ai-sdk/openai";
 import { streamText } from "ai";
+import { cookies } from "next/headers";
+import { getAdminAuth } from "../../../../firebase/firebaseAdmin";
 
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
 
 export async function POST(req: Request) {
+  // 미들웨어는 페이지만 막고 API는 못 막는다. OpenAI 비용이 나가는
+  // 엔드포인트이므로 세션 쿠키를 서버에서 검증한다.
+  const session = cookies().get("token")?.value;
+  if (!session) {
+    return new Response("Unauthorized", { status: 401 });
+  }
+  try {
+    await getAdminAuth().verifySessionCookie(session, true);
+  } catch {
+    return new Response("Unauthorized", { status: 401 });
+  }
+
   const { messages, gender, age, height, weight } = await req.json();
 
   const result = streamText({
@@ -66,7 +80,8 @@ export async function POST(req: Request) {
 - 간단한 설명 또는 팁  
 - 응원의 한 마디 💬
 `,
-    messages,
+    // 대화가 길어져도 요청당 토큰 비용이 무한정 커지지 않게 최근 20개만 전달
+    messages: messages.slice(-20),
   });
 
   //클라이언트에서 실시간으로 받을 수 있게 스트림 응답 객체로 변환해주는 메소드
