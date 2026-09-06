@@ -65,7 +65,7 @@ export default function SignUpForm() {
         body: JSON.stringify({ token }),
       });
 
-      window.location.href = `/signup/info?uid=${user.uid}`;
+      window.location.href = "/signup/info";
     } catch (error) {
       console.log(error);
       setIsLoading(true);

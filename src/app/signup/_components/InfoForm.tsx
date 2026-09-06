@@ -3,10 +3,12 @@
 import { doc, setDoc } from "firebase/firestore";
 import { FormEvent, useState } from "react";
 import { db } from "../../../../firebase/firebasedb";
-import { useSearchParams } from "next/navigation";
+import { useAuthStore } from "@/hooks/useAuthStore";
 
 export default function InfoForm() {
-  const param = useSearchParams();
+  // uid를 URL 쿼리로 받으면 누구나 다른 계정의 문서 경로로 쓰기를 시도할 수 있다.
+  // 로그인 세션의 uid만 사용한다.
+  const uid = useAuthStore((state) => state.uid);
 
   const [gender, setGender] = useState<string>("male");
   const [error, setError] = useState<string>("");
@@ -30,7 +32,6 @@ export default function InfoForm() {
       const age = Number(formData.get("age") as string);
       const height = Number(formData.get("height") as string);
       const weight = Number(formData.get("weight") as string);
-      const uid = param.get("uid");
 
       if (!uid) {
         setError("회원 정보가 없습니다.");
@@ -42,7 +43,7 @@ export default function InfoForm() {
         return;
       }
 
-      if (age > 2024 || age < 1900) {
+      if (age > new Date().getFullYear() || age < 1900) {
         setError("출생연도를 정확히 입력해주세요");
         return;
       }

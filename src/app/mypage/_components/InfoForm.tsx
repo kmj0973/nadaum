@@ -42,7 +42,7 @@ export default function InfoForm() {
         return;
       }
 
-      if (age > 2024 || age < 1900) {
+      if (age > new Date().getFullYear() || age < 1900) {
         setError("출생연도를 정확히 입력해주세요");
         return;
       }
