@@ -25,10 +25,12 @@ export default function Chat() {
     height: number;
     weight: number;
   }>({ age: 0, gender: "", height: 0, weight: 0 });
+  // useChat은 제출 즉시 input을 비우므로, onFinish 시점에 저장할 질문을 따로 보관한다
+  const lastInputRef = useRef<string>("");
   const { messages, input, handleInputChange, handleSubmit, status } = useChat({
     body: {
       gender: info.gender,
-      age: 2025 - info.age,
+      age: new Date().getFullYear() - info.age,
       height: info.height,
       weight: info.weight,
     },
@@ -40,7 +42,7 @@ export default function Chat() {
             {
               id: userId,
               role: "user",
-              content: input,
+              content: lastInputRef.current,
             },
             {
               id: message.id,
@@ -56,7 +58,7 @@ export default function Chat() {
     const getInfo = async () => {
       if (uid) {
         const docSnap = await getDoc(doc(db, "users", uid));
-        if (docSnap.data) {
+        if (docSnap.exists()) {
           const age = docSnap.data()?.age;
           const gender = docSnap.data()?.gender;
           const height = docSnap.data()?.height;
@@ -129,6 +131,7 @@ export default function Chat() {
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault(); // 줄바꿈 방지
+                lastInputRef.current = input;
                 handleSubmit();
               }
             }}
@@ -137,7 +140,10 @@ export default function Chat() {
           />
           <button
             className="absolute right-8 cursor-pointer"
-            onClick={handleSubmit}
+            onClick={() => {
+              lastInputRef.current = input;
+              handleSubmit();
+            }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

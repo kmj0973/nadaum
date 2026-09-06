@@ -41,7 +41,7 @@ export default function DietPage() {
     const getInfo = async () => {
       if (uid) {
         const docSnap = await getDoc(doc(db, "users", uid));
-        if (docSnap.data) {
+        if (docSnap.exists()) {
           const age = docSnap.data()?.age;
           const gender = docSnap.data()?.gender;
           const height = docSnap.data()?.height;
@@ -65,7 +65,9 @@ export default function DietPage() {
       content: `
 당신은 전문 영양사입니다.
 
-목표: 사용자의 신체 정보(성별:${info.gender}, 나이:만${2025 - info.age}세, 키:${
+목표: 사용자의 신체 정보(성별:${info.gender}, 나이:만${
+        new Date().getFullYear() - info.age
+      }세, 키:${
         info.height
       }cm, 몸무게:${
         info.weight
