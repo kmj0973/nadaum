@@ -17,13 +17,15 @@ export default function DietCard() {
   const [dinner, setDinner] = useState<string>("");
   const uid = useAuthStore((state) => state.uid);
 
-  const now = new Date();
+  // 홈은 정적 페이지라 렌더 중에 new Date()를 쓰면 빌드 날짜가 HTML에 박혀
+  // 클라이언트 날짜와 달라진다(hydration 에러 #422). 마운트 후에 계산한다.
+  const [now, setNow] = useState<Date | null>(null);
+  useEffect(() => setNow(new Date()), []);
 
-  const dayIndex = now.getDay(); // 1 (월요일)
   const days = ["일", "월", "화", "수", "목", "금", "토"];
-  const dayName = days[dayIndex];
-  const month = now.getMonth() + 1;
-  const day = now.getDate();
+  const dayName = now ? days[now.getDay()] : "";
+  const month = now ? now.getMonth() + 1 : "";
+  const day = now ? now.getDate() : "";
 
   useEffect(() => {
     const getContent = async () => {
@@ -56,10 +58,8 @@ export default function DietCard() {
     >
       <div className="flex-1 flex flex-col h-full justify-around py-4 pl-3 tablet:py-5 tablet:pl-5 gap-2">
         <div className="text-[32px]/9 tablet:text-4xl font-bold text-white">
-          <div>
-            {month}월 {day}일
-          </div>
-          <div>{dayName}요일</div>
+          <div className="min-h-9">{now && `${month}월 ${day}일`}</div>
+          <div className="min-h-9">{now && `${dayName}요일`}</div>
         </div>
         <div className="flex">
           <div

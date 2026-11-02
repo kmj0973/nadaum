@@ -17,6 +17,10 @@ export default function Info() {
   const displayName = useAuthStore((state) => state.displayName);
   const email = useAuthStore((state) => state.email);
   const router = useRouter();
+  // persist 스토어는 클라이언트에서만 localStorage 값을 갖는다.
+  // 서버 HTML(null)과 첫 렌더를 맞추기 위해 마운트 후에만 표시한다.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   const [info, setInfo] = useState<{
     age: number;
     gender: string;
@@ -53,7 +57,7 @@ export default function Info() {
           />
         </div>
         <div className="flex-1">
-          {displayName ? (
+          {mounted && displayName ? (
             <div className="text-base tablet:text-lg">
               <span className="text-xl tablet:text-2xl font-bold">
                 {displayName}
@@ -63,7 +67,7 @@ export default function Info() {
           ) : (
             <span className="text-gray-500 animate-pulse">로딩중</span>
           )}
-          <div className="text-[10px] tablet:text-sm">{email}</div>
+          <div className="text-[10px] tablet:text-sm">{mounted && email}</div>
         </div>
       </div>
       <div className="w-full flex flex-col justify-start items-center flex-1 gap-10">
