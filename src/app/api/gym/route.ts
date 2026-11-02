@@ -1,5 +1,5 @@
 export async function GET() {
-  const apiKey = process.env.NEXT_PUBLIC_OPENDATA_API_KEY;
+  const apiKey = process.env.OPENDATA_API_KEY;
   const apiUrl = `http://openapi.seoul.go.kr:8088/${apiKey}/json/LOCALDATA_104201/1/900/`;
 
   try {
