@@ -21,6 +21,9 @@ export default function Info() {
   // 서버 HTML(null)과 첫 렌더를 맞추기 위해 마운트 후에만 표시한다.
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
+  // info.age에는 출생연도가 저장돼 있다. 나이는 데이터 로드 후에만 그려지므로
+  // 렌더 중 new Date()를 써도 hydration 불일치가 생기지 않는다.
+  const currentYear = new Date().getFullYear();
   const [info, setInfo] = useState<{
     age: number;
     gender: string;
@@ -101,7 +104,7 @@ export default function Info() {
                     <Loading color="white" />
                   )
                 ) : (
-                  `만${2025 - info.age}세`
+                  `만${currentYear - info.age}세`
                 )}
               </div>
             </div>
@@ -166,14 +169,14 @@ export default function Info() {
                   66.47 +
                     13.75 * info.weight +
                     5 * info.height -
-                    6.76 * (2025 - info.age)
+                    6.76 * (currentYear - info.age)
                 )}
               {info.gender == "female" &&
                 Math.ceil(
                   655.1 +
                     9.56 * info.weight +
                     1.85 * info.height -
-                    4.68 * (2025 - info.age)
+                    4.68 * (currentYear - info.age)
                 )}
               Kcal
             </div>
